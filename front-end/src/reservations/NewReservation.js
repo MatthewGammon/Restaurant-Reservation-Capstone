@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { createReservation } from '../utils/api';
 
 export default function NewReservation() {
   const [reservation, setReservation] = useState({
@@ -8,32 +9,25 @@ export default function NewReservation() {
     mobile_number: '',
     reservation_date: '',
     reservation_time: '',
-    party_size: '',
+    people: '',
   });
 
-  const reservations = [];
-
-  let history = useHistory();
+  const history = useHistory();
 
   function handleSubmit(event) {
     event.preventDefault();
-    reservations.push(reservation);
-    console.log(reservations[0]);
-    setReservation({
-      first_name: '',
-      last_name: '',
-      mobile_number: '',
-      reservation_date: '',
-      reservation_time: '',
-      party_size: '',
-    });
+    createReservation(reservation).then(() =>
+      history.push(`/dashboard/?date=${reservation.reservation_date}`)
+    );
   }
+
   function handleChange({ target: { name, value } }) {
     setReservation((previousReservation) => ({
       ...previousReservation,
       [name]: value,
     }));
   }
+
   return (
     <form className="reservation-form" onSubmit={handleSubmit}>
       <label>
@@ -65,7 +59,7 @@ export default function NewReservation() {
           name="mobile_number"
           type="tel"
           placeholder="555-666-6969"
-          pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+          // pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
           required
           value={reservation.mobile_number}
           onChange={handleChange}
@@ -96,12 +90,12 @@ export default function NewReservation() {
       <label>
         Number of people in Party:
         <input
-          name="party_size"
+          name="people"
           type="number"
           placeholder="min. 1 person"
           min="1"
           required
-          value={reservation.party_size}
+          value={reservation.people}
           onChange={handleChange}
         />
       </label>
