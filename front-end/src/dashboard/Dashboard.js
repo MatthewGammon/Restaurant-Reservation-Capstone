@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { listReservations } from '../utils/api';
 import ErrorAlert from '../layout/ErrorAlert';
 import { useHistory } from 'react-router';
-import { today, previous, next } from '../utils/date-time';
+import { previous, next } from '../utils/date-time';
 
 /**
  * Defines the dashboard page.
@@ -62,6 +62,7 @@ function Dashboard({ date }) {
 
   return (
     <main>
+      <ErrorAlert error={reservationsError} />
       <h1>Dashboard</h1>
       <div className="d-md-flex mb-3">
         <h4 className="mb-0">Reservations for date: {date}</h4>
@@ -86,7 +87,6 @@ function Dashboard({ date }) {
           today
         </button>
       </div>
-      <ErrorAlert error={reservationsError} />
       <div className="d-flex">
         <div className="col-2">
           <h5>First Name</h5>
