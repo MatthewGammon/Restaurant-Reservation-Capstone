@@ -29,17 +29,11 @@ function hasValidProperties(req, res, next) {
 
 function hasAllProperties(req, res, next) {
   const keys = Object.keys(req.body.data);
-  let difference = validProperties.filter((x) => !keys.includes(x));
+  let difference = validProperties.filter((prop) => !keys.includes(prop));
   if (difference.length) {
     return next({
       status: 400,
       message: `Reservation request is missing the following properties: ${difference}`,
-    });
-  }
-  if (keys.length !== validProperties.length) {
-    next({
-      status: 400,
-      message: `You have submitted a duplicate property. Please only send a request with one property of each type.`,
     });
   }
   next();
@@ -101,13 +95,13 @@ function hasValidDate(req, res, next) {
   if (submitDate < today) {
     next({
       status: 400,
-      message: `The date cannot be in the past. Today is ${today}.`,
+      message: `The date and time cannot be in the past. Today is ${today}.`,
     });
   }
   if (dayAsNum === invalidDate) {
     next({
       status: 400,
-      message: `The restaurant is not open on Tuesdays. Please select a different day!`,
+      message: `The restaurant is not open on Tuesdays. Please select a different day.`,
     });
   }
   next();
@@ -130,7 +124,7 @@ function hasValidTime(req, res, next) {
     if (reservation_time >= '21:30:00') {
       next({
         status: 400,
-        message: `The restaurant closes at 22:30. Please schedule your reservation at least one hour before close.`,
+        message: `The restaurant closes at 22:30 (10:30 pm). Please schedule your reservation at least one hour before close.`,
       });
     }
   }
