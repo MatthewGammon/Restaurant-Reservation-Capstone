@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { createReservation } from '../utils/api';
+import ErrorAlert from '../layout/ErrorAlert';
 
 export default function NewReservation() {
+  const [reservationsError, setReservationsError] = useState(null);
   const [reservation, setReservation] = useState({
     first_name: '',
     last_name: '',
@@ -16,9 +18,11 @@ export default function NewReservation() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    createReservation(reservation).then(() =>
-      history.push(`/dashboard/?date=${reservation.reservation_date}`)
-    );
+    createReservation(reservation)
+      .then(() =>
+        history.push(`/dashboard/?date=${reservation.reservation_date}`)
+      )
+      .catch(setReservationsError);
   }
 
   function handleChange({ target: { name, value } }) {
@@ -30,6 +34,7 @@ export default function NewReservation() {
 
   return (
     <form className="reservation-form" onSubmit={handleSubmit}>
+      <ErrorAlert error={reservationsError} />
       <label>
         First Name:
         <input
@@ -46,7 +51,7 @@ export default function NewReservation() {
         <input
           name="last_name"
           type="text"
-          placeholder="Bobbinson"
+          placeholder="Boberts"
           required
           value={reservation.last_name}
           onChange={handleChange}
@@ -59,7 +64,7 @@ export default function NewReservation() {
           name="mobile_number"
           type="tel"
           placeholder="555-666-6969"
-          // pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+          pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
           required
           value={reservation.mobile_number}
           onChange={handleChange}
