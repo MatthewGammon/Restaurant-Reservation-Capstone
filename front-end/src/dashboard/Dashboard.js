@@ -3,6 +3,7 @@ import { listReservations } from '../utils/api';
 import ErrorAlert from '../layout/ErrorAlert';
 import { useHistory } from 'react-router';
 import { previous, next } from '../utils/date-time';
+import TablesView from '../tables/TablesView';
 
 /**
  * Defines the dashboard page.
@@ -57,6 +58,11 @@ function Dashboard({ date }) {
       <div className="col-2">
         <p>{res.people}</p>
       </div>
+      <a href={`/reservations/${res.reservation_id}/seat`}>
+        <button type="button" className="btn btn-primary">
+          Seat
+        </button>
+      </a>
     </div>
   ));
 
@@ -105,7 +111,9 @@ function Dashboard({ date }) {
         </div>
       </div>
       <div>{content}</div>
-      {/* {JSON.stringify(reservations)} */}
+      <div>
+        <TablesView />
+      </div>
     </main>
   );
 }
