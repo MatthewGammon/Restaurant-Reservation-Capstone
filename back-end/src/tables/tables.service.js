@@ -5,7 +5,7 @@ function create(table) {
 }
 
 function list() {
-  return knex('tables').returning('*');
+  return knex('tables').returning('*').orderBy('table_name');
 }
 
 module.exports = {
