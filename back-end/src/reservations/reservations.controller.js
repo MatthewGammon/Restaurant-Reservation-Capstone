@@ -72,8 +72,7 @@ function hasMobileNumber(req, res, next) {
   const splitNumber = mobile_number.split('-');
   const numOnly = splitNumber.join('');
 
-  //last OR takes the number string and converts it to a number, then passes it to isNaN to verify that only numerical characters are contained.
-  if (mobile_number === '' || numOnly.length !== 10 || isNaN(Number(numOnly))) {
+  if (mobile_number === '' || isNaN(Number(numOnly))) {
     next({
       status: 400,
       message: `Property ${validProperties[index]} cannot be empty and must contain only numbers 0-9 in the format 123-123-1234`,
