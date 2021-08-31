@@ -15,27 +15,30 @@ const validProperties = [
 ];
 
 function hasValidProperties(req, res, next) {
-  const reservation = req.body.data;
-  for (let prop in reservation) {
-    if (!validProperties.includes(prop)) {
-      return next({
-        status: 400,
-        message: `'${prop}' is not a valid property for a new reservation`,
-      });
-    }
+  const { data = {} } = req.body;
+  const invalidFields = Object.keys(data).filter(
+    (field) => !validProperties.includes(field)
+  );
+
+  if (invalidFields.length) {
+    return next({
+      status: 400,
+      message: `Invalid field(s): ${invalidFields.join(', ')}`,
+    });
   }
   next();
 }
 
-function hasAllProperties(req, res, next) {
-  const keys = Object.keys(req.body.data);
-  let difference = validProperties.filter((prop) => !keys.includes(prop));
-  if (difference.length) {
-    return next({
-      status: 400,
-      message: `Reservation request is missing the following properties: ${difference}`,
-    });
-  }
+function hasProperties(req, res, next) {
+  const { data = {} } = req.body;
+  validProperties.forEach((property) => {
+    if (!data[property]) {
+      next({
+        status: 400,
+        message: `A '${property}' property is required.`,
+      });
+    }
+  });
   next();
 }
 
@@ -86,10 +89,19 @@ function hasValidDate(req, res, next) {
   const dayAsNum = submitDate.getDay();
   const today = new Date();
 
+  const dateFormat = /\d\d\d\d-\d\d-\d\d/;
+
+  if (!reservation_date.match(dateFormat)) {
+    return next({
+      status: 400,
+      message: 'the reservation_date field must be a valid date',
+    });
+  }
+
   if (!reservation_date) {
     next({
       status: 400,
-      message: `Please select a date.`,
+      message: `reservation_date cannot be empty. Please select a date.`,
     });
   }
   if (submitDate < today) {
@@ -109,10 +121,18 @@ function hasValidDate(req, res, next) {
 
 function hasValidTime(req, res, next) {
   const { reservation_time } = req.body.data;
+  const timeFormat = /\d\d:\d\d/;
+
   if (!reservation_time) {
     next({
       status: 400,
-      message: `Please select a time.`,
+      message: `reservation_time cannot be empty. Please select a time.`,
+    });
+  }
+  if (!reservation_time.match(timeFormat)) {
+    return next({
+      status: 400,
+      message: 'the reservation_time field must be a valid time',
     });
   }
   if (reservation_time < '10:29:59') {
@@ -133,10 +153,10 @@ function hasValidTime(req, res, next) {
 
 function hasValidPartySize(req, res, next) {
   const { people } = req.body.data;
-  if (people < 1) {
+  if (people < 1 || typeof people !== 'number') {
     next({
       status: 400,
-      message: `Parties must have a minimum size of at least 1 person.`,
+      message: `The 'people' property must have a value that is a number and be greater than 0.`,
     });
   }
   next();
@@ -150,6 +170,7 @@ async function list(req, res) {
 }
 
 async function create(req, res, next) {
+  console.log(req.body.data);
   const newReservation = await service.create(req.body.data);
   res.status(201).json({ data: newReservation });
 }
@@ -157,7 +178,7 @@ async function create(req, res, next) {
 module.exports = {
   create: [
     asyncErrorBoundary(hasValidProperties),
-    asyncErrorBoundary(hasAllProperties),
+    asyncErrorBoundary(hasProperties),
     asyncErrorBoundary(hasFirstName),
     asyncErrorBoundary(hasLastName),
     asyncErrorBoundary(hasMobileNumber),
