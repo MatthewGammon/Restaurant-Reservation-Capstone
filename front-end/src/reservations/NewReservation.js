@@ -19,11 +19,9 @@ export default function NewReservation() {
   function handleSubmit(event) {
     event.preventDefault();
     createReservation(reservation)
-      .then(() => {
-        console.log('new reservation', reservation);
-
-        history.push(`/dashboard/?date=${reservation.reservation_date}`);
-      })
+      .then(() =>
+        history.push(`/dashboard/?date=${reservation.reservation_date}`)
+      )
       .catch(setReservationsError);
   }
 
