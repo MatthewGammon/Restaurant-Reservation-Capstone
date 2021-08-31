@@ -69,7 +69,6 @@ export default function NewReservation() {
           name="mobile_number"
           type="tel"
           placeholder="555-666-6969"
-          pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
           required
           value={reservation.mobile_number}
           onChange={handleChange}
