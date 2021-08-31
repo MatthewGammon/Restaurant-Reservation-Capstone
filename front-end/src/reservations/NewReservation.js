@@ -19,13 +19,18 @@ export default function NewReservation() {
   function handleSubmit(event) {
     event.preventDefault();
     createReservation(reservation)
-      .then(() =>
-        history.push(`/dashboard/?date=${reservation.reservation_date}`)
-      )
+      .then(() => {
+        console.log('new reservation', reservation);
+
+        history.push(`/dashboard/?date=${reservation.reservation_date}`);
+      })
       .catch(setReservationsError);
   }
 
   function handleChange({ target: { name, value } }) {
+    if (name === 'people') {
+      value = Number(value);
+    }
     setReservation((previousReservation) => ({
       ...previousReservation,
       [name]: value,
