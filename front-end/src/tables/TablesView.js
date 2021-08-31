@@ -24,7 +24,9 @@ export default function TablesView() {
         <p>{table.capacity}</p>
       </div>
       <div className="col-4">
-        <p>{table.occupied ? 'Occupied' : 'Free'}</p>
+        <p data-table-id-status={table.table_id}>
+          {table.occupied ? 'Occupied' : 'Free'}
+        </p>
       </div>
     </div>
   ));
