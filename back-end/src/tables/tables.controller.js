@@ -1,6 +1,5 @@
 const service = require('./tables.service');
 const asyncErrorBoundary = require('../errors/asyncErrorBoundary');
-const { table } = require('../db/connection');
 
 const validProperties = ['table_name', 'capacity'];
 
