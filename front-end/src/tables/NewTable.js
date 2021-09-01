@@ -21,6 +21,9 @@ export default function NewTable() {
   };
 
   const handleChange = ({ target: { name, value } }) => {
+    if (name === 'capacity') {
+      value = Number(value);
+    }
     setTable((previousTable) => ({
       ...previousTable,
       [name]: value,
