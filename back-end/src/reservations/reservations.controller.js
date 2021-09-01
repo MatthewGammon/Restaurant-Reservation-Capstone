@@ -106,13 +106,13 @@ function hasValidDate(req, res, next) {
   if (submitDate < today) {
     next({
       status: 400,
-      message: `The date and time cannot be in the past. Today is ${today}.`,
+      message: `The date and time cannot be in the past. Please select a future date. Today is ${today}.`,
     });
   }
   if (dayAsNum === invalidDate) {
     next({
       status: 400,
-      message: `The restaurant is not open on Tuesdays. Please select a different day.`,
+      message: `The restaurant is closed on Tuesdays. Please select a different day.`,
     });
   }
   next();
