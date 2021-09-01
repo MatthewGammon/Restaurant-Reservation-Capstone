@@ -23,10 +23,8 @@ export default function TablesView() {
       <div className="col-4">
         <p>{table.capacity}</p>
       </div>
-      <div className="col-4">
-        <p data-table-id-status={table.table_id}>
-          {table.occupied ? 'Occupied' : 'Free'}
-        </p>
+      <div data-table-id-status={table.table_id} className="col-4">
+        <p>{table.occupied ? 'Occupied' : 'Free'}</p>
       </div>
     </div>
   ));
