@@ -95,7 +95,7 @@ export async function createTable(table, signal) {
   return await fetchJson(url, options);
 }
 
-export async function updateTable(reservationId, tableId, capacity, signal) {
+export async function updateTable(reservationId, tableId, signal) {
   const url = `${API_BASE_URL}/tables/:table_id/seat`;
   const options = {
     method: 'PUT',
@@ -104,7 +104,6 @@ export async function updateTable(reservationId, tableId, capacity, signal) {
       data: {
         reservation_id: reservationId,
         table_id: tableId,
-        table_capacity: capacity,
       },
     }),
     signal,
