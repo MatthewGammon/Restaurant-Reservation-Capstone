@@ -10,7 +10,7 @@ export default function SeatTable() {
 
   const history = useHistory();
   const params = useParams();
-  const id = Number(params.reservationId);
+  const resId = Number(params.reservationId);
 
   useEffect(loadTables, []);
 
@@ -23,7 +23,7 @@ export default function SeatTable() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    updateTable(id, Number(selectValue.table_id))
+    updateTable(resId, Number(selectValue.table_id))
       .then(() => history.push('/dashboard'))
       .catch(setTableError);
   };
