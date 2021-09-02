@@ -30,15 +30,21 @@ function hasValidProperties(req, res, next) {
 }
 
 function hasProperties(req, res, next) {
-  const { data = {} } = req.body;
-  validProperties.forEach((property) => {
-    if (!data[property]) {
+  const keys = Object.keys(req.body.data);
+  if (keys.length === 0) {
+    next({
+      status: 400,
+      message: `You can not submit a request with no properties. Please start by entering a 'first_name' property.`,
+    });
+  }
+  for (let prop of validProperties) {
+    if (!keys.includes(prop)) {
       next({
         status: 400,
-        message: `A '${property}' property is required.`,
+        message: `A ${prop} property is required.`,
       });
     }
-  });
+  }
   next();
 }
 
@@ -75,7 +81,7 @@ function hasMobileNumber(req, res, next) {
   if (mobile_number === '' || isNaN(Number(numOnly))) {
     next({
       status: 400,
-      message: `Property ${validProperties[index]} cannot be empty and must contain only numbers 0-9 in the format 123-123-1234`,
+      message: `Property ${validProperties[index]} cannot be empty and must be a string containing only numbers 0-9 in the format 123-123-1234`,
     });
   }
   next();
@@ -89,18 +95,16 @@ function hasValidDate(req, res, next) {
   const today = new Date();
 
   const dateFormat = /\d\d\d\d-\d\d-\d\d/;
-
-  if (!reservation_date.match(dateFormat)) {
-    return next({
-      status: 400,
-      message: 'the reservation_date field must be a valid date',
-    });
-  }
-
   if (!reservation_date) {
     next({
       status: 400,
       message: `reservation_date cannot be empty. Please select a date.`,
+    });
+  }
+  if (!reservation_date.match(dateFormat)) {
+    return next({
+      status: 400,
+      message: `the reservation_date must be a valid date in the format 'YYYY-MM-DD'`,
     });
   }
   if (submitDate < today) {
@@ -131,7 +135,7 @@ function hasValidTime(req, res, next) {
   if (!reservation_time.match(timeFormat)) {
     return next({
       status: 400,
-      message: 'the reservation_time field must be a valid time',
+      message: `the reservation_time must be a valid time in the format '12:30`,
     });
   }
   if (reservation_time < '10:29:59') {
@@ -184,7 +188,7 @@ async function read(req, res) {
 }
 
 async function list(req, res) {
-  const { date } = req.query;
+  const date = req.query.date || new Date();
   res.json({
     data: await service.listByDate(date),
   });
