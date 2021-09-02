@@ -31,7 +31,6 @@ function list() {
 
 module.exports = {
   create,
-  read,
   updateTable,
   list,
   readTable,
