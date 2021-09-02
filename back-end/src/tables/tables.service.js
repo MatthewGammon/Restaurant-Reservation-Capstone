@@ -32,7 +32,6 @@ function updateTable(reservationId, tableId) {
 function list() {
   return knex('tables').returning('*').orderBy('table_name');
 }
-next();
 
 module.exports = {
   create,
