@@ -7,10 +7,6 @@ function create(table) {
     .then((createdTable) => createdTable[0]);
 }
 
-function read(reservationId) {
-  return knex('tables').select('*').where({ reservation_id: reservationId });
-}
-
 function readTable(tableId) {
   return knex('tables').select('*').where({ table_id: tableId }).first();
 }
