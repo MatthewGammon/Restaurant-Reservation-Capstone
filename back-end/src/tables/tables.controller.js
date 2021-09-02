@@ -55,12 +55,11 @@ async function list(req, res, next) {
 
 module.exports = {
   create: [
-    // asyncErrorBoundary(hasValidProperties),
     asyncErrorBoundary(hasProperties),
     asyncErrorBoundary(hasValidName),
     asyncErrorBoundary(hasValidCapacity),
     asyncErrorBoundary(create),
   ],
-  update: asyncErrorBoundary(updateTable),
+  update: [asyncErrorBoundary(updateTable)],
   list: asyncErrorBoundary(list),
 };

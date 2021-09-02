@@ -11,6 +11,10 @@ function read(reservationId) {
   return knex('tables').select('*').where({ reservation_id: reservationId });
 }
 
+function readTable(tableId) {
+  return knex('tables').select('*').where({ table_id: tableId }).first();
+}
+
 function updateTable(reservationId, tableId) {
   return knex('tables')
     .join(
@@ -22,16 +26,18 @@ function updateTable(reservationId, tableId) {
     .where({ table_id: tableId })
     .update('reservation_id', reservationId)
     .update('occupied', true)
-    .then(() => read(reservationId));
+    .then(() => readTable(tableId));
 }
 
 function list() {
   return knex('tables').returning('*').orderBy('table_name');
 }
+next();
 
 module.exports = {
   create,
   read,
   updateTable,
   list,
+  readTable,
 };
