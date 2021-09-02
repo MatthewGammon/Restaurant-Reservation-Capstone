@@ -161,14 +161,26 @@ function hasValidPartySize(req, res, next) {
   next();
 }
 
+async function reservationExists(req, res, next) {
+  const { reservation_Id } = req.params;
+  const foundRes = await service.read(reservation_Id);
+  if (foundRes) {
+    res.locals.res = foundRes;
+    return next();
+  }
+  next({
+    status: 404,
+    message: `No reservation found for id ${reservation_Id}.`,
+  });
+}
+
 async function create(req, res, next) {
   const newReservation = await service.create(req.body.data);
   res.status(201).json({ data: newReservation });
 }
 
 async function read(req, res) {
-  const { reservation_Id } = req.params;
-  res.status(200).json({ data: await service.read(reservation_Id) });
+  res.json({ data: await service.read(res.locals.res.reservation_id) });
 }
 
 async function list(req, res) {
@@ -190,6 +202,6 @@ module.exports = {
     asyncErrorBoundary(hasValidPartySize),
     asyncErrorBoundary(create),
   ],
-  read: asyncErrorBoundary(read),
+  read: [asyncErrorBoundary(reservationExists), asyncErrorBoundary(read)],
   list: asyncErrorBoundary(list),
 };
