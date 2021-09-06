@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { listReservations } from '../utils/api';
+import { listReservations, listTables } from '../utils/api';
 import ErrorAlert from '../layout/ErrorAlert';
 import { useHistory } from 'react-router';
 import { previous, next } from '../utils/date-time';
@@ -15,6 +15,8 @@ import TablesView from '../tables/TablesView';
 function Dashboard({ date }) {
   const [reservations, setReservations] = useState([]);
   const [reservationsError, setReservationsError] = useState(null);
+  const [tables, setTables] = useState([]);
+  const [tablesError, setTablesError] = useState(null);
 
   const history = useHistory();
 
@@ -26,6 +28,7 @@ function Dashboard({ date }) {
     listReservations({ date }, abortController.signal)
       .then(setReservations)
       .catch(setReservationsError);
+    listTables(abortController.signal).then(setTables).catch(setTablesError);
     return () => abortController.abort();
   }
 
@@ -55,20 +58,24 @@ function Dashboard({ date }) {
       <div className="col-2">
         <p>{res.reservation_time}</p>
       </div>
-      <div className="col-2">
+      <div className="col-1">
         <p>{res.people}</p>
       </div>
-      <a href={`/reservations/${res.reservation_id}/seat`}>
-        <button type="button" className="btn btn-primary">
-          Seat
-        </button>
-      </a>
+      <div className="col-1">
+        {' '}
+        <a href={`/reservations/${res.reservation_id}/seat`}>
+          <button type="button" className="btn btn-primary btn-sm px-2">
+            Seat
+          </button>
+        </a>
+      </div>
     </div>
   ));
 
   return (
     <main>
       <ErrorAlert error={reservationsError} />
+      <ErrorAlert error={tablesError} />
       <h1>Dashboard</h1>
       <div className="d-md-flex mb-3">
         <h4 className="mb-0">Reservations for date: {date}</h4>
@@ -106,13 +113,13 @@ function Dashboard({ date }) {
         <div className="col-2">
           <h5>Reservation Time</h5>
         </div>
-        <div className="col-2">
+        <div className="col-1">
           <h5>Party Size</h5>
         </div>
       </div>
       <div>{content}</div>
       <div>
-        <TablesView />
+        <TablesView tables={tables} />
       </div>
     </main>
   );
