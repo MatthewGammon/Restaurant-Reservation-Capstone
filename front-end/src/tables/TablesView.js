@@ -1,19 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import ErrorAlert from '../layout/ErrorAlert';
-import { listTables } from '../utils/api';
+import { clearTable } from '../utils/api';
 
-export default function TablesView() {
-  const [tables, setTables] = useState([]);
-  const [tablesError, setTablesError] = useState(null);
+export default function TablesView({ tables }) {
+  const [finishError, setFinishError] = useState(null);
 
-  useEffect(loadTables, []);
-
-  function loadTables() {
-    const abortController = new AbortController();
-    setTablesError(null);
-    listTables(abortController.signal).then(setTables).catch(setTablesError);
-    return () => abortController.abort();
-  }
+  const handleFinish = (tableId) => {
+    if (
+      window.confirm(
+        'Is this table ready to seat new guests? This cannot be undone.'
+      )
+    ) {
+      setFinishError(null);
+      clearTable(tableId).then(window.location.reload()).catch(setFinishError);
+    }
+  };
 
   const content = tables.map((table, i) => (
     <div key={i} className="d-flex">
@@ -23,15 +24,30 @@ export default function TablesView() {
       <div className="col-4">
         <p>{table.capacity}</p>
       </div>
-      <div data-table-id-status={table.table_id} className="col-4">
-        <p>{table.occupied ? 'Occupied' : 'Free'}</p>
+      <div className="col-1">
+        <h5 data-table-id-status={`${table.table_id}`}>
+          {table.reservation_id ? 'Occupied' : 'Free'}
+        </h5>
+      </div>
+      <div className="col-3">
+        {' '}
+        {table.reservation_id && (
+          <button
+            type="button"
+            className="btn btn-warning btn-sm"
+            data-table-id-finish={`${table.table_id}`}
+            onClick={() => handleFinish(table.table_id)}
+          >
+            Finish
+          </button>
+        )}
       </div>
     </div>
   ));
 
   return (
     <main>
-      <ErrorAlert error={tablesError} />
+      <ErrorAlert error={finishError} />
       <h4>Tables</h4>
       <div className="d-flex">
         <div className="col-4">
@@ -40,7 +56,7 @@ export default function TablesView() {
         <div className="col-4">
           <h5>Capacity</h5>
         </div>
-        <div className="col-4">
+        <div className="col-1">
           <h5>Status</h5>
         </div>
       </div>
