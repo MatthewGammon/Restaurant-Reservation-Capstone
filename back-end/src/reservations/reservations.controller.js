@@ -184,7 +184,7 @@ async function read(req, res) {
 }
 
 async function list(req, res) {
-  const { date } = req.query;
+  const date = req.query.date || new Date();
   res.json({
     data: await service.listByDate(date),
   });
