@@ -124,7 +124,7 @@ export async function clearTable(tableId) {
 }
 
 export async function updateStatus(reservationId, status, signal) {
-  const url = `${API_BASE_URL}/reservations/${reservationId}/seat`;
+  const url = `${API_BASE_URL}/reservations/${reservationId}/status`;
   const options = {
     method: 'PUT',
     headers,
