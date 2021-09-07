@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { listReservations, listTables } from '../utils/api';
+import { listReservations } from '../utils/api';
 import ErrorAlert from '../layout/ErrorAlert';
 import { useHistory } from 'react-router';
 import { previous, next } from '../utils/date-time';
@@ -15,8 +15,6 @@ import TablesView from '../tables/TablesView';
 function Dashboard({ date }) {
   const [reservations, setReservations] = useState([]);
   const [reservationsError, setReservationsError] = useState(null);
-  const [tables, setTables] = useState([]);
-  const [tablesError, setTablesError] = useState(null);
 
   const history = useHistory();
 
@@ -28,7 +26,7 @@ function Dashboard({ date }) {
     listReservations({ date }, abortController.signal)
       .then(setReservations)
       .catch(setReservationsError);
-    listTables(abortController.signal).then(setTables).catch(setTablesError);
+
     return () => abortController.abort();
   }
 
@@ -75,7 +73,6 @@ function Dashboard({ date }) {
   return (
     <main>
       <ErrorAlert error={reservationsError} />
-      <ErrorAlert error={tablesError} />
       <h1>Dashboard</h1>
       <div className="d-md-flex mb-3">
         <h4 className="mb-0">Reservations for date: {date}</h4>
@@ -119,7 +116,7 @@ function Dashboard({ date }) {
       </div>
       <div>{content}</div>
       <div>
-        <TablesView tables={tables} />
+        <TablesView />
       </div>
     </main>
   );
