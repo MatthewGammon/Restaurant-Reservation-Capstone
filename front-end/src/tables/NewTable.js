@@ -8,7 +8,6 @@ export default function NewTable() {
   const [table, setTable] = useState({
     table_name: '',
     capacity: '',
-    occupied: 'false',
   });
 
   const history = useHistory();

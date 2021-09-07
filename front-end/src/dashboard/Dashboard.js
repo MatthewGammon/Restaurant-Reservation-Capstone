@@ -26,6 +26,7 @@ function Dashboard({ date }) {
     listReservations({ date }, abortController.signal)
       .then(setReservations)
       .catch(setReservationsError);
+
     return () => abortController.abort();
   }
 
@@ -55,14 +56,17 @@ function Dashboard({ date }) {
       <div className="col-2">
         <p>{res.reservation_time}</p>
       </div>
-      <div className="col-2">
+      <div className="col-1">
         <p>{res.people}</p>
       </div>
-      <a href={`/reservations/${res.reservation_id}/seat`}>
-        <button type="button" className="btn btn-primary">
-          Seat
-        </button>
-      </a>
+      <div className="col-1">
+        {' '}
+        <a href={`/reservations/${res.reservation_id}/seat`}>
+          <button type="button" className="btn btn-primary btn-sm px-2">
+            Seat
+          </button>
+        </a>
+      </div>
     </div>
   ));
 
@@ -106,7 +110,7 @@ function Dashboard({ date }) {
         <div className="col-2">
           <h5>Reservation Time</h5>
         </div>
-        <div className="col-2">
+        <div className="col-1">
           <h5>Party Size</h5>
         </div>
       </div>
