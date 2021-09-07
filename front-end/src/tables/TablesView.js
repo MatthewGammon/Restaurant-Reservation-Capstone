@@ -1,9 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ErrorAlert from '../layout/ErrorAlert';
-import { clearTable } from '../utils/api';
+import { clearTable, listTables } from '../utils/api';
 
-export default function TablesView({ tables }) {
+export default function TablesView() {
   const [finishError, setFinishError] = useState(null);
+  const [tables, setTables] = useState([]);
+  const [tablesError, setTablesError] = useState(null);
+
+  useEffect(loadTables, []);
+
+  function loadTables() {
+    const abortController = new AbortController();
+    setTablesError(null);
+    listTables(abortController.signal).then(setTables).catch(setTablesError);
+
+    return () => abortController.abort();
+  }
 
   const handleFinish = (tableId) => {
     if (
@@ -12,7 +24,10 @@ export default function TablesView({ tables }) {
       )
     ) {
       setFinishError(null);
-      clearTable(tableId).then(window.location.reload()).catch(setFinishError);
+      clearTable(tableId)
+        .then(listTables)
+        .then(setTables)
+        .catch(setFinishError);
     }
   };
 
@@ -48,6 +63,7 @@ export default function TablesView({ tables }) {
   return (
     <main>
       <ErrorAlert error={finishError} />
+      <ErrorAlert error={tablesError} />
       <h4>Tables</h4>
       <div className="d-flex">
         <div className="col-4">
