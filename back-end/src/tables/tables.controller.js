@@ -156,8 +156,7 @@ async function validateOccupation(req, res, next) {
 async function destroy(req, res) {
   const table_id = req.params.table_id;
   await service.clearTable(table_id);
-  console.log('success');
-  res.sendStatus(200);
+  res.sendStatus(204);
 }
 
 module.exports = {
