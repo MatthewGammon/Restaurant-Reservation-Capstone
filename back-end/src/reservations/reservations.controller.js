@@ -14,6 +14,18 @@ const validProperties = [
   'people',
 ];
 
+function hasData(req, res, next) {
+  const data = req.body.data;
+  if (data) {
+    next();
+  } else {
+    next({
+      status: 400,
+      message: `Request is missing 'data'.`,
+    });
+  }
+}
+
 function hasValidProperties(req, res, next) {
   const { data = {} } = req.body;
   const invalidFields = Object.keys(data).filter(
@@ -196,6 +208,7 @@ async function list(req, res) {
 
 module.exports = {
   create: [
+    asyncErrorBoundary(hasData),
     asyncErrorBoundary(hasValidProperties),
     asyncErrorBoundary(hasProperties),
     asyncErrorBoundary(hasFirstName),
