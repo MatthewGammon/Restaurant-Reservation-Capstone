@@ -73,8 +73,6 @@ async function resExists(req, res, next) {
 
 async function tableExists(req, res, next) {
   const table_id = Number(req.params.table_id);
-  console.log('table exists: table is', table_id);
-  console.log('---');
   const table = await service.readTable(table_id);
   if (table) {
     res.locals.table = table;
@@ -88,7 +86,7 @@ async function tableExists(req, res, next) {
 }
 
 function tableIsFree(req, res, next) {
-  const occupied = res.locals.table.occupied;
+  const occupied = res.locals.table.reservation_id;
   if (occupied) {
     next({
       status: 400,
@@ -156,7 +154,7 @@ async function validateOccupation(req, res, next) {
 async function destroy(req, res) {
   const table_id = req.params.table_id;
   await service.clearTable(table_id);
-  res.sendStatus(204);
+  res.status(200).json({});
 }
 
 module.exports = {
