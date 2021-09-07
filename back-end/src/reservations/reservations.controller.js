@@ -199,6 +199,13 @@ async function read(req, res) {
   res.json({ data: await service.read(res.locals.res.reservation_id) });
 }
 
+async function updateStatus(req, res) {
+  const reservation_id = res.locals.res.reservation_id;
+  const { status } = req.body.data;
+  console.log(reservation_id, status);
+  res.json({ data: await service.updateStatus(reservation_id, status) });
+}
+
 async function list(req, res) {
   const date = req.query.date || new Date();
   res.json({
@@ -220,5 +227,9 @@ module.exports = {
     asyncErrorBoundary(create),
   ],
   read: [asyncErrorBoundary(reservationExists), asyncErrorBoundary(read)],
+  update: [
+    asyncErrorBoundary(reservationExists),
+    asyncErrorBoundary(updateStatus),
+  ],
   list: asyncErrorBoundary(list),
 };
