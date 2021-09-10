@@ -20,11 +20,13 @@ function updateStatus(reservation_Id, status) {
     .update({ status: status })
     .then(() => read(reservation_Id));
 }
+
 function listByDate(date) {
   return knex('reservations')
     .select('*')
-    .where({ 'reservations.reservation_date': date })
-    .orderBy('reservations.reservation_time');
+    .where({ reservation_date: date })
+    .whereNot({ status: 'finished' })
+    .orderBy('reservation_time');
 }
 
 module.exports = {
