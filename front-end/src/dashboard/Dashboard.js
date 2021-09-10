@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { listReservations } from '../utils/api';
+import { listReservations, listTables } from '../utils/api';
 import ErrorAlert from '../layout/ErrorAlert';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 import { previous, next } from '../utils/date-time';
 import TablesView from '../tables/TablesView';
 
@@ -15,6 +15,8 @@ import TablesView from '../tables/TablesView';
 function Dashboard({ date }) {
   const [reservations, setReservations] = useState([]);
   const [reservationsError, setReservationsError] = useState(null);
+  const [tables, setTables] = useState([]);
+  const [tablesError, setTablesError] = useState(null);
 
   const history = useHistory();
 
@@ -23,10 +25,11 @@ function Dashboard({ date }) {
   function loadDashboard() {
     const abortController = new AbortController();
     setReservationsError(null);
+    setTablesError(null);
     listReservations({ date }, abortController.signal)
       .then(setReservations)
       .catch(setReservationsError);
-
+    listTables(abortController.signal).then(setTables).catch(setTablesError);
     return () => abortController.abort();
   }
 
@@ -42,30 +45,37 @@ function Dashboard({ date }) {
     history.push('/');
   };
 
-  const content = reservations.map((res, i) => (
+  const content = reservations.map((reservation, i) => (
     <div key={i} className="d-flex">
       <div className="col-2">
-        <p>{res.first_name}</p>
+        <p>{reservation.first_name}</p>
       </div>
       <div className="col-2">
-        <p>{res.last_name}</p>
+        <p>{reservation.last_name}</p>
       </div>
       <div className="col-2">
-        <p>{res.mobile_number}</p>
+        <p>{reservation.mobile_number}</p>
       </div>
       <div className="col-2">
-        <p>{res.reservation_time}</p>
+        <p>{reservation.reservation_time}</p>
       </div>
       <div className="col-1">
-        <p>{res.people}</p>
+        <p>{reservation.people}</p>
+      </div>
+      <div>
+        <p data-reservation-id-status={reservation.reservation_id}>
+          {reservation.status}
+        </p>
       </div>
       <div className="col-1">
         {' '}
-        <a href={`/reservations/${res.reservation_id}/seat`}>
-          <button type="button" className="btn btn-primary btn-sm px-2">
-            Seat
-          </button>
-        </a>
+        {reservation.status === 'booked' && (
+          <a href={`/reservations/${reservation.reservation_id}/seat`}>
+            <button type="button" className="btn btn-primary btn-sm px-2">
+              Seat
+            </button>
+          </a>
+        )}
       </div>
     </div>
   ));
@@ -113,10 +123,16 @@ function Dashboard({ date }) {
         <div className="col-1">
           <h5>Party Size</h5>
         </div>
+        <div>
+          <h5>Status</h5>
+        </div>
       </div>
       <div>{content}</div>
       <div>
-        <TablesView />
+        <ErrorAlert error={tablesError} />
+      </div>
+      <div>
+        <TablesView tables={tables} date={date} loadDashboard={loadDashboard} />
       </div>
     </main>
   );
