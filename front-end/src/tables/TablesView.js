@@ -3,11 +3,10 @@ import ErrorAlert from '../layout/ErrorAlert';
 import { clearTable, updateStatus } from '../utils/api';
 import { useHistory } from 'react-router-dom';
 
-export default function TablesView({ tables, date, loadDashboard }) {
+export default function TablesView({ tables, loadDashboard }) {
   const [finishError, setFinishError] = useState(null);
 
   const history = useHistory();
-  // console.log(date);
 
   async function handleFinish(tableId, reservation_id) {
     if (
