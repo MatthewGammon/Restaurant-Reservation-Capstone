@@ -122,14 +122,3 @@ export async function clearTable(tableId) {
   };
   return await fetchJson(url, options);
 }
-
-export async function updateStatus(reservationId, status, signal) {
-  const url = `${API_BASE_URL}/reservations/${reservationId}/status`;
-  const options = {
-    method: 'PUT',
-    headers,
-    body: JSON.stringify({ data: status }),
-    signal,
-  };
-  return await fetchJson(url, options);
-}
