@@ -1,35 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import ErrorAlert from '../layout/ErrorAlert';
-import { clearTable, listTables } from '../utils/api';
+import { clearTable } from '../utils/api';
 
-export default function TablesView() {
+export default function TablesView({ tables, loadDashboard }) {
   const [finishError, setFinishError] = useState(null);
-  const [tables, setTables] = useState([]);
-  const [tablesError, setTablesError] = useState(null);
 
-  useEffect(loadTables, []);
-
-  function loadTables() {
-    const abortController = new AbortController();
-    setTablesError(null);
-    listTables(abortController.signal).then(setTables).catch(setTablesError);
-
-    return () => abortController.abort();
-  }
-
-  const handleFinish = (tableId) => {
+  async function handleFinish(tableId) {
     if (
       window.confirm(
         'Is this table ready to seat new guests? This cannot be undone.'
       )
     ) {
+      const abortController = new AbortController();
       setFinishError(null);
-      clearTable(tableId)
-        .then(listTables)
-        .then(setTables)
-        .catch(setFinishError);
+      try {
+        await clearTable(tableId);
+        loadDashboard();
+      } catch (err) {
+        setFinishError(err);
+      }
+
+      return () => abortController.abort();
     }
-  };
+  }
 
   const content = tables.map((table, i) => (
     <div key={i} className="d-flex">
@@ -51,7 +44,7 @@ export default function TablesView() {
             type="button"
             className="btn btn-warning btn-sm"
             data-table-id-finish={`${table.table_id}`}
-            onClick={() => handleFinish(table.table_id)}
+            onClick={() => handleFinish(table.table_id, table.reservation_id)}
           >
             Finish
           </button>
@@ -63,7 +56,6 @@ export default function TablesView() {
   return (
     <main>
       <ErrorAlert error={finishError} />
-      <ErrorAlert error={tablesError} />
       <h4>Tables</h4>
       <div className="d-flex">
         <div className="col-4">

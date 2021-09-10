@@ -12,6 +12,7 @@ const validProperties = [
   'reservation_date',
   'reservation_time',
   'people',
+  'status',
 ];
 
 function hasData(req, res, next) {
@@ -41,24 +42,24 @@ function hasValidProperties(req, res, next) {
   next();
 }
 
-function hasProperties(req, res, next) {
-  const keys = Object.keys(req.body.data);
-  if (keys.length === 0) {
-    next({
-      status: 400,
-      message: `You can not submit a request with no properties. Please start by entering a 'first_name' property.`,
-    });
-  }
-  for (let prop of validProperties) {
-    if (!keys.includes(prop)) {
-      next({
-        status: 400,
-        message: `A ${prop} property is required.`,
-      });
-    }
-  }
-  next();
-}
+// function hasProperties(req, res, next) {
+//   const keys = Object.keys(req.body.data);
+//   if (keys.length === 0) {
+//     next({
+//       status: 400,
+//       message: `You can not submit a request with no properties. Please start by entering a 'first_name' property.`,
+//     });
+//   }
+//   for (let prop of validProperties) {
+//     if (!keys.includes(prop)) {
+//       next({
+//         status: 400,
+//         message: `A ${prop} property is required.`,
+//       });
+//     }
+//   }
+//   next();
+// }
 
 function hasFirstName(req, res, next) {
   const index = validProperties.indexOf('first_name');
@@ -87,13 +88,19 @@ function hasLastName(req, res, next) {
 function hasMobileNumber(req, res, next) {
   const index = validProperties.indexOf('mobile_number');
   const { mobile_number } = req.body.data;
-  const splitNumber = mobile_number.split('-');
-  const numOnly = splitNumber.join('');
 
-  if (mobile_number === '' || isNaN(Number(numOnly))) {
+  if (!mobile_number || mobile_number === '') {
     next({
       status: 400,
       message: `Property ${validProperties[index]} cannot be empty and must be a string containing only numbers 0-9 in the format 123-123-1234`,
+    });
+  }
+  const splitNumber = mobile_number.split('-');
+  const numOnly = splitNumber.join('');
+  if (isNaN(Number(numOnly))) {
+    next({
+      status: 400,
+      message: `Mobile number can only contain numbers 0-9 in the format 123-123-1234 `,
     });
   }
   next();
@@ -180,6 +187,7 @@ function hasValidPartySize(req, res, next) {
 async function reservationExists(req, res, next) {
   const { reservation_Id } = req.params;
   const foundRes = await service.read(reservation_Id);
+
   if (foundRes) {
     res.locals.res = foundRes;
     return next();
@@ -189,6 +197,41 @@ async function reservationExists(req, res, next) {
     message: `No reservation found for id ${reservation_Id}.`,
   });
 }
+function checkStatus(req, res, next) {
+  const { status } = req.body.data;
+  const validStatus = ['booked', 'seated', 'finished', 'cancelled'];
+  if (!validStatus.includes(status)) {
+    next({
+      status: 400,
+      message: `The status '${status}' is not valid`,
+    });
+  }
+  next();
+}
+
+function validateFinish(req, res, next) {
+  const { status } = res.locals.res;
+  if (status === 'finished') {
+    next({
+      status: 400,
+      message: `Reservation status is currently finished and cannot be updated`,
+    });
+  }
+  next();
+}
+
+function checkBooked(req, res, next) {
+  const { status } = req.body.data;
+  if (status) {
+    if (status !== 'booked') {
+      next({
+        status: 400,
+        message: `A new reservation cannot have a status of ${status}`,
+      });
+    }
+  }
+  next();
+}
 
 async function create(req, res, next) {
   const newReservation = await service.create(req.body.data);
@@ -197,6 +240,12 @@ async function create(req, res, next) {
 
 async function read(req, res) {
   res.json({ data: await service.read(res.locals.res.reservation_id) });
+}
+
+async function updateStatus(req, res) {
+  const reservation_id = res.locals.res.reservation_id;
+  const { status } = req.body.data;
+  res.json({ data: await service.updateStatus(reservation_id, status) });
 }
 
 async function list(req, res) {
@@ -210,15 +259,22 @@ module.exports = {
   create: [
     asyncErrorBoundary(hasData),
     asyncErrorBoundary(hasValidProperties),
-    asyncErrorBoundary(hasProperties),
+    // asyncErrorBoundary(hasProperties),
     asyncErrorBoundary(hasFirstName),
     asyncErrorBoundary(hasLastName),
     asyncErrorBoundary(hasMobileNumber),
     asyncErrorBoundary(hasValidDate),
     asyncErrorBoundary(hasValidTime),
     asyncErrorBoundary(hasValidPartySize),
+    asyncErrorBoundary(checkBooked),
     asyncErrorBoundary(create),
   ],
   read: [asyncErrorBoundary(reservationExists), asyncErrorBoundary(read)],
+  update: [
+    asyncErrorBoundary(reservationExists),
+    asyncErrorBoundary(checkStatus),
+    asyncErrorBoundary(validateFinish),
+    asyncErrorBoundary(updateStatus),
+  ],
   list: asyncErrorBoundary(list),
 };
