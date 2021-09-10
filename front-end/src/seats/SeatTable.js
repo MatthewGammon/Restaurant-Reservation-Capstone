@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import { updateTable, listTables } from '../utils/api';
+import { updateTable, listTables, updateStatus } from '../utils/api';
 import ErrorAlert from '../layout/ErrorAlert';
 
 export default function SeatTable() {
@@ -24,6 +24,7 @@ export default function SeatTable() {
   const handleSubmit = (event) => {
     event.preventDefault();
     updateTable(resId, Number(selectValue.table_id))
+      .then(updateStatus(resId, { status: 'Seated' }))
       .then(() => history.push('/dashboard'))
       .catch(setTableError);
   };
