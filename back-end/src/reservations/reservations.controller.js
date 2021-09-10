@@ -180,6 +180,7 @@ function hasValidPartySize(req, res, next) {
 async function reservationExists(req, res, next) {
   const { reservation_Id } = req.params;
   const foundRes = await service.read(reservation_Id);
+
   if (foundRes) {
     res.locals.res = foundRes;
     return next();
@@ -202,7 +203,6 @@ async function read(req, res) {
 async function updateStatus(req, res) {
   const reservation_id = res.locals.res.reservation_id;
   const { status } = req.body.data;
-  console.log(reservation_id, status);
   res.json({ data: await service.updateStatus(reservation_id, status) });
 }
 
