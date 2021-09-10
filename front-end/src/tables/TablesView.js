@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
 import ErrorAlert from '../layout/ErrorAlert';
-import { clearTable, updateStatus } from '../utils/api';
-import { useHistory } from 'react-router-dom';
+import { clearTable } from '../utils/api';
 
 export default function TablesView({ tables, loadDashboard }) {
   const [finishError, setFinishError] = useState(null);
 
-  const history = useHistory();
-
-  async function handleFinish(tableId, reservation_id) {
+  async function handleFinish(tableId) {
     if (
       window.confirm(
         'Is this table ready to seat new guests? This cannot be undone.'
@@ -16,12 +13,13 @@ export default function TablesView({ tables, loadDashboard }) {
     ) {
       const abortController = new AbortController();
       setFinishError(null);
+      try {
+        await clearTable(tableId);
+        loadDashboard();
+      } catch (err) {
+        setFinishError(err);
+      }
 
-      await clearTable(tableId);
-      await updateStatus(reservation_id, { status: 'Finished' })
-        .then(loadDashboard())
-        .then(history.push('/'))
-        .catch(setFinishError);
       return () => abortController.abort();
     }
   }
