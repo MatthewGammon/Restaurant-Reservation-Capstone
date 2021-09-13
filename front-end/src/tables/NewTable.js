@@ -30,9 +30,9 @@ export default function NewTable() {
   };
 
   return (
-    <form className="table-form" onSubmit={handleSubmit}>
+    <form className="table-form mt-3" onSubmit={handleSubmit}>
       <ErrorAlert error={tableError} />
-      <label>
+      <label className="table-name">
         Table Name:
         <input
           name="table_name"
@@ -44,6 +44,7 @@ export default function NewTable() {
           onChange={handleChange}
         />
       </label>
+      <br />
       <label>
         Capacity:
         <input
@@ -57,10 +58,10 @@ export default function NewTable() {
         />
       </label>
       <br />
-      <button type="submit" className="btn btn-primary">
+      <button type="submit" className="btn btn-sm btn-primary">
         Submit
       </button>
-      <button className="btn btn-danger" onClick={history.goBack}>
+      <button className="btn btn-sm btn-danger" onClick={history.goBack}>
         Cancel
       </button>
     </form>
