@@ -242,6 +242,15 @@ async function read(req, res) {
   res.json({ data: await service.read(res.locals.res.reservation_id) });
 }
 
+async function update(req, res) {
+  const reservationId = res.locals.res.reservation_id;
+  const updatedReservation = {
+    ...req.body.data,
+    reservation_id: reservationId,
+  };
+  res.json({ data: await service.update(updatedReservation) });
+}
+
 async function updateStatus(req, res) {
   const reservation_id = res.locals.res.reservation_id;
   const { status } = req.body.data;
@@ -281,6 +290,16 @@ module.exports = {
   ],
   read: [asyncErrorBoundary(reservationExists), asyncErrorBoundary(read)],
   update: [
+    asyncErrorBoundary(reservationExists),
+    asyncErrorBoundary(hasFirstName),
+    asyncErrorBoundary(hasLastName),
+    asyncErrorBoundary(hasMobileNumber),
+    asyncErrorBoundary(hasValidDate),
+    asyncErrorBoundary(hasValidTime),
+    asyncErrorBoundary(hasValidPartySize),
+    asyncErrorBoundary(update),
+  ],
+  updateStatus: [
     asyncErrorBoundary(reservationExists),
     asyncErrorBoundary(checkStatus),
     asyncErrorBoundary(validateFinish),
