@@ -1,6 +1,28 @@
-import React from 'react';
+import { React, useState } from 'react';
+import { updateStatus } from '../utils/api';
+import ErrorAlert from '../layout/ErrorAlert';
 
 export default function ReservationsList({ reservations }) {
+  const [cancelError, setCancelError] = useState(null);
+
+  async function handleCancel(reservationId) {
+    if (
+      window.confirm(
+        'Do you want to cancel this reservation? This cannot be undone.'
+      )
+    ) {
+      const abortController = new AbortController();
+      setCancelError(null);
+      try {
+        await updateStatus(reservationId);
+        window.location.reload();
+      } catch (error) {
+        setCancelError(error);
+      }
+      return () => abortController.abort();
+    }
+  }
+
   const content = reservations.map((reservation, index) => (
     <div key={index}>
       <div className="card-header bg-dark text-light">
@@ -31,11 +53,19 @@ export default function ReservationsList({ reservations }) {
                   Seat
                 </button>
               </a>
-              <a href={`/reservations/${reservation?.reservation_id}/edit`}>
-                <button type="button" className="btn btn-primary btn-sm">
+              <a href={`/reservations/${reservation.reservation_id}/edit`}>
+                <button type="button" className="btn btn-warning btn-sm mr-2">
                   Edit
                 </button>
               </a>
+              <button
+                data-reservation-id-cancel={reservation.reservation_id}
+                type="button"
+                className="btn btn-danger btn-sm"
+                onClick={() => handleCancel(reservation.reservation_id)}
+              >
+                Cancel
+              </button>
             </>
           )}
         </div>
@@ -43,5 +73,12 @@ export default function ReservationsList({ reservations }) {
     </div>
   ));
 
-  return <div>{content}</div>;
+  return (
+    <div className="reservations-list">
+      <div>
+        <ErrorAlert error={cancelError} />
+      </div>
+      <div>{content}</div>
+    </div>
+  );
 }
