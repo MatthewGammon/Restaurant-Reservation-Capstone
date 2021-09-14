@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect, useRef } from 'react';
 import ErrorAlert from '../layout/ErrorAlert';
 import { listReservations } from '../utils/api';
 import ReservationsList from '../reservations/ReservationsList';
@@ -11,6 +11,12 @@ export default function Search() {
   const [reservations, setReservations] = useState([]);
   const [reservationsError, setReservationsError] = useState(null);
   const [searched, setSearched] = useState(false);
+
+  const inputRef = useRef();
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -46,6 +52,7 @@ export default function Search() {
               type="text"
               placeholder="Enter a customer's phone number"
               required
+              ref={inputRef}
               value={number.mobile_number}
               onChange={handleChange}
             />

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { createReservation } from '../utils/api';
 import ErrorAlert from '../layout/ErrorAlert';
@@ -16,6 +16,11 @@ export default function NewReservation() {
   });
 
   const history = useHistory();
+  const inputRef = useRef();
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -37,7 +42,7 @@ export default function NewReservation() {
   }
 
   return (
-    <form className="reservation-form" onSubmit={handleSubmit}>
+    <form className="reservation-form mt-2" onSubmit={handleSubmit}>
       <ErrorAlert error={reservationsError} />
       <label>
         First Name:
@@ -47,6 +52,7 @@ export default function NewReservation() {
           placeholder="Bob"
           required
           value={reservation.first_name}
+          ref={inputRef}
           onChange={handleChange}
         />
       </label>

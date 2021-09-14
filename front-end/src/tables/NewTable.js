@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { createTable } from '../utils/api';
 import ErrorAlert from '../layout/ErrorAlert';
@@ -11,6 +11,11 @@ export default function NewTable() {
   });
 
   const history = useHistory();
+  const inputRef = useRef();
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -41,6 +46,7 @@ export default function NewTable() {
           minLength="2"
           required
           value={table.table_name}
+          ref={inputRef}
           onChange={handleChange}
         />
       </label>
