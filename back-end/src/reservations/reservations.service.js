@@ -14,6 +14,14 @@ function read(reservation_Id) {
     .first();
 }
 
+function update(updatedReservation) {
+  return knex('reservations')
+    .select('*')
+    .where({ reservation_id: updatedReservation.reservation_id })
+    .update(updatedReservation, '*')
+    .then((updatedReservations) => updatedReservations[0]);
+}
+
 function updateStatus(reservation_Id, status) {
   return knex('reservations')
     .where({ reservation_id: reservation_Id })
@@ -26,6 +34,7 @@ function listByDate(date) {
     .select('*')
     .where({ reservation_date: date })
     .whereNot({ status: 'finished' })
+    .whereNot({ status: 'cancelled' })
     .orderBy('reservation_time');
 }
 
@@ -49,4 +58,5 @@ module.exports = {
   listByDate,
   search,
   list,
+  update,
 };
