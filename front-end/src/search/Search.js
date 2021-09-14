@@ -1,6 +1,7 @@
 import { React, useState } from 'react';
 import ErrorAlert from '../layout/ErrorAlert';
 import { listReservations } from '../utils/api';
+import ReservationsList from '../reservations/ReservationsList';
 
 export default function Search() {
   const [number, setNumber] = useState({
@@ -33,41 +34,6 @@ export default function Search() {
     }));
   }
 
-  const matchedReservations = reservations.map((reservation, index) => {
-    return (
-      <div key={index}>
-        {
-          // should be using a reservations list that was previously defined and used in the dashboard
-          // keeping this as a placeholder for now
-        }
-        <div className="card-header bg-dark text-light">
-          {reservation.first_name} {reservation.last_name}
-        </div>
-        <ul className="list-group">
-          <li className="list-group-item">
-            Mobile Number: {reservation.mobile_number}
-          </li>
-          <li className="list-group-item">
-            Reservation Date: {reservation.reservation_date}
-          </li>
-          <li className="list-group-item">
-            Reservation Time: {reservation.reservation_time}
-          </li>
-          <li className="list-group-item">People: {reservation.people}</li>
-          <li
-            className="list-group-item"
-            data-reservation-id-status={reservation.reservation_id}
-          >
-            Status: {reservation.status}{' '}
-          </li>
-        </ul>
-        <div className="separator">
-          <br />
-        </div>
-      </div>
-    );
-  });
-
   return (
     <div className="main">
       <div className="searchBox">
@@ -92,13 +58,14 @@ export default function Search() {
       <div>
         <ErrorAlert error={reservationsError} />
       </div>
-      <div className="matchedReservations">
+      <div className="content">
         {reservations.length !== 0 && (
           <>
             <h5>Reservations matching number: {number.mobile_number}</h5>
-            <div>{matchedReservations}</div>
+            <ReservationsList reservations={reservations} />
           </>
         )}
+
         {searched && reservations.length === 0 ? (
           <h3>No reservations found</h3>
         ) : (

@@ -3,6 +3,7 @@ import { listReservations, listTables } from '../utils/api';
 import ErrorAlert from '../layout/ErrorAlert';
 import { useHistory } from 'react-router-dom';
 import { previous, next } from '../utils/date-time';
+import ReservationsList from '../reservations/ReservationsList';
 import TablesView from '../tables/TablesView';
 
 /**
@@ -45,41 +46,6 @@ function Dashboard({ date }) {
     history.push('/');
   };
 
-  const content = reservations.map((reservation, i) => (
-    <div key={i} className="d-flex">
-      <div className="col-2">
-        <p>{reservation.first_name}</p>
-      </div>
-      <div className="col-2">
-        <p>{reservation.last_name}</p>
-      </div>
-      <div className="col-2">
-        <p>{reservation.mobile_number}</p>
-      </div>
-      <div className="col-2">
-        <p>{reservation.reservation_time}</p>
-      </div>
-      <div className="col-1">
-        <p>{reservation.people}</p>
-      </div>
-      <div>
-        <p data-reservation-id-status={reservation.reservation_id}>
-          {reservation.status}
-        </p>
-      </div>
-      <div className="col-1">
-        {' '}
-        {reservation.status === 'booked' && (
-          <a href={`/reservations/${reservation.reservation_id}/seat`}>
-            <button type="button" className="btn btn-primary btn-sm px-2">
-              Seat
-            </button>
-          </a>
-        )}
-      </div>
-    </div>
-  ));
-
   return (
     <main>
       <ErrorAlert error={reservationsError} />
@@ -107,27 +73,9 @@ function Dashboard({ date }) {
           today
         </button>
       </div>
-      <div className="d-flex">
-        <div className="col-2">
-          <h5>First Name</h5>
-        </div>
-        <div className="col-2">
-          <h5>Last Name</h5>
-        </div>
-        <div className="col-2">
-          <h5>Mobile number</h5>
-        </div>
-        <div className="col-2">
-          <h5>Reservation Time</h5>
-        </div>
-        <div className="col-1">
-          <h5>Party Size</h5>
-        </div>
-        <div>
-          <h5>Status</h5>
-        </div>
+      <div>
+        <ReservationsList reservations={reservations} />
       </div>
-      <div>{content}</div>
       <div>
         <ErrorAlert error={tablesError} />
       </div>
