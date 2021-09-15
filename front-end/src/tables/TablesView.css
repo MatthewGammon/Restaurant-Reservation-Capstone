@@ -1,0 +1,29 @@
+.tables-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin-top: 20px;
+}
+
+.table {
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 10%;
+  margin-right: 10px;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 20px;
+}
+
+.tables-header {
+  text-align: center;
+  background-color: black;
+  color: white;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  margin: 0px;
+  padding: 5px 0px 5px 0px;
+}
+
+.tables-header h3 {
+  font-size: 40px;
+  margin: 0px;
+}

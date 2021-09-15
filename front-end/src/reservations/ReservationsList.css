@@ -1,0 +1,46 @@
+.reservations-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.reservation {
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 20%;
+  margin-right: 10px;
+  margin-bottom: 15px;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 20px;
+}
+
+.card-header,
+.list-group-item .btn {
+  text-align: center;
+  color: white;
+  background-color: black;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.card-header {
+  font-size: 24px;
+}
+
+.list-group-item .btn {
+  margin: 5px;
+  border: 1px solid #ffa400;
+  transition-duration: 0.3s;
+}
+
+.list-group-item .btn:hover {
+  background-color: #08b2e3;
+  color: white;
+}
+
+.card-footer {
+  margin-bottom: 10px;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
