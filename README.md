@@ -72,15 +72,14 @@ A Restaurant Reservation System that is used to keep track of guest reservations
         }
 ```
 ## Installation
-To install dependencies, use npm install.
+To install dependencies, verify you are in the project root and use npm install.
 ```
-npm install
+npm install || npm i
 ```
 
-To start the React web page, use npm start.
-```
-npm run start
-```
+To start up the React app, from the project root directory, run 'npm run start:frontend'
+
+To spin up the server on a localhost, from the project root directory, run 'npm run start:backend'
 
 
 
