@@ -27,10 +27,13 @@ export default function TablesView({ tables, loadDashboard }) {
 
   const content = tables.map((table, i) => (
     <div className="table" key={table.table_id}>
-      <div class="card-header">{table.table_name}</div>
-      <ul class="list-group">
-        <li class="list-group-item">Capacity: {table.capacity}</li>
-        <li class="list-group-item" data-table-id-status={`${table.table_id}`}>
+      <div className="card-header">{table.table_name}</div>
+      <ul className="list-group">
+        <li className="list-group-item">Capacity: {table.capacity}</li>
+        <li
+          className="list-group-item"
+          data-table-id-status={`${table.table_id}`}
+        >
           Status: {table.reservation_id ? 'Occupied' : 'Free'}
         </li>
         <div className="list-group-item card-footer ">

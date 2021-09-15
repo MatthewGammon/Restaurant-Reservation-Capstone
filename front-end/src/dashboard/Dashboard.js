@@ -49,12 +49,12 @@ function Dashboard({ date }) {
 
   return (
     <main>
-      <ErrorAlert error={reservationsError} />
       <div className="header">
         <div className="header-text">
           <h1 className="">Dashboard</h1>
           <h4 className="">Reservations for date: {date}</h4>
         </div>
+        <ErrorAlert error={reservationsError} />
         <div className="buttons">
           <button className="btn mr-2" onClick={() => handlePreviousDate(date)}>
             previous

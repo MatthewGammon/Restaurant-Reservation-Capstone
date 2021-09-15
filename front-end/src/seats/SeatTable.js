@@ -44,10 +44,10 @@ export default function SeatTable() {
 
   return (
     <div className="main">
-      <ErrorAlert error={tableError} />
       <div className="header">
         <h1>Seat A Reservation</h1>
       </div>
+      <ErrorAlert error={tableError} />
       <div className="select-container">
         <form onSubmit={handleSubmit}>
           <fieldset>
