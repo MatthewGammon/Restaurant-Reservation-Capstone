@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { updateTable, listTables } from '../utils/api';
 import ErrorAlert from '../layout/ErrorAlert';
+import './SeatTable.css';
 
 export default function SeatTable() {
   const [tables, setTables] = useState([]);
@@ -44,29 +45,28 @@ export default function SeatTable() {
   return (
     <div className="main">
       <ErrorAlert error={tableError} />
-      <div>
-        <h5>Table Name - Table Capacity</h5>
+      <div className="header">
+        <h1>Seat A Reservation</h1>
       </div>
       <div className="select-container">
         <form onSubmit={handleSubmit}>
-          <label>
-            Select a table to seat this reservation:
-            <select name="table_id" required onChange={changeHandler}>
-              <option value=""></option>
-              {options}
-            </select>
-          </label>
-          <br />
-          <button type="submit" className="btn btn-primary btn-sm">
-            Submit
-          </button>
-          <button
-            type="button"
-            className="btn btn-danger btn-sm"
-            onClick={history.goBack}
-          >
-            Cancel
-          </button>
+          <fieldset>
+            <legend>Select a table to seat this reservation:</legend>
+            <label>
+              Table Name - Table Capacity
+              <select name="table_id" required onChange={changeHandler}>
+                <option value=""></option>
+                {options}
+              </select>
+            </label>
+            <br />
+            <button type="submit" className="btn">
+              Submit
+            </button>
+            <button type="button" className="btn" onClick={history.goBack}>
+              Cancel
+            </button>
+          </fieldset>
         </form>
       </div>
       <div></div>

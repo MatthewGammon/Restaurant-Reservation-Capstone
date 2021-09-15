@@ -6,6 +6,7 @@ import {
   readReservation,
 } from '../utils/api';
 import ErrorAlert from '../layout/ErrorAlert';
+import './NewReservation.css';
 
 export default function NewReservation() {
   const [reservationsError, setReservationsError] = useState(null);
@@ -72,84 +73,97 @@ export default function NewReservation() {
   }
 
   return (
-    <form className="reservation-form mt-2" onSubmit={handleSubmit}>
-      <ErrorAlert error={reservationsError} />
-      <label>
-        First Name:
-        <input
-          name="first_name"
-          type="text"
-          placeholder="Bob"
-          required
-          value={reservation.first_name}
-          ref={inputRef}
-          onChange={handleChange}
-        />
-      </label>
-      <label>
-        Last Name:
-        <input
-          name="last_name"
-          type="text"
-          placeholder="Boberts"
-          required
-          value={reservation.last_name}
-          onChange={handleChange}
-        />
-      </label>
-      <br />
-      <label>
-        Mobile Number:
-        <input
-          name="mobile_number"
-          type="tel"
-          placeholder="555-666-6969"
-          required
-          value={reservation.mobile_number}
-          onChange={handleChange}
-        />
-      </label>
-      <br />
-      <label>
-        Date of Reservation:
-        <input
-          name="reservation_date"
-          type="date"
-          required
-          value={reservation.reservation_date}
-          onChange={handleChange}
-        />
-      </label>
-      <label>
-        Time of Reservation:
-        <input
-          name="reservation_time"
-          type="time"
-          required
-          value={reservation.reservation_time}
-          onChange={handleChange}
-        />
-      </label>
-      <br />
-      <label>
-        Number of people in Party:
-        <input
-          name="people"
-          type="number"
-          placeholder="min. 1 person"
-          min="1"
-          required
-          value={reservation.people}
-          onChange={handleChange}
-        />
-      </label>
-      <br />
-      <button type="submit" className="btn btn-primary">
-        Submit
-      </button>
-      <button className="btn btn-danger" onClick={history.goBack}>
-        Cancel
-      </button>
-    </form>
+    <div className="main">
+      <div className="header">
+        <h1>Create A New Reservation</h1>
+      </div>
+      <form className="reservation-form mt-2" onSubmit={handleSubmit}>
+        <ErrorAlert error={reservationsError} />
+        <fieldset>
+          <legend>Customer Information:</legend>
+          <label>
+            First Name:
+            <input
+              name="first_name"
+              type="text"
+              placeholder="Carl"
+              required
+              value={reservation.first_name}
+              ref={inputRef}
+              onChange={handleChange}
+            />
+          </label>
+          <label>
+            Last Name:
+            <input
+              name="last_name"
+              type="text"
+              placeholder="Sagan"
+              required
+              value={reservation.last_name}
+              onChange={handleChange}
+            />
+          </label>
+          <br />
+          <label>
+            Mobile Number:
+            <input
+              name="mobile_number"
+              type="tel"
+              placeholder="123-456-7890"
+              required
+              value={reservation.mobile_number}
+              onChange={handleChange}
+            />
+          </label>
+        </fieldset>
+        <br />
+        <fieldset>
+          <legend>Reservation Information:</legend>
+          <label>
+            Date of Reservation:
+            <input
+              name="reservation_date"
+              type="date"
+              required
+              value={reservation.reservation_date}
+              onChange={handleChange}
+            />
+          </label>
+          <label>
+            Time of Reservation:
+            <input
+              name="reservation_time"
+              type="time"
+              required
+              value={reservation.reservation_time}
+              onChange={handleChange}
+            />
+          </label>
+          <br />
+          <label>
+            Number of people in Party:
+            <input
+              name="people"
+              type="number"
+              placeholder="min. 1 person"
+              min="1"
+              required
+              value={reservation.people}
+              onChange={handleChange}
+            />
+          </label>
+        </fieldset>
+        <br />
+        <div className="buttons">
+          <button type="submit" className="btn">
+            Submit
+          </button>
+          <button className="btn" onClick={history.goBack}>
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
   );
 }

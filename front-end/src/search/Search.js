@@ -2,6 +2,7 @@ import { React, useState, useEffect, useRef } from 'react';
 import ErrorAlert from '../layout/ErrorAlert';
 import { listReservations } from '../utils/api';
 import ReservationsList from '../reservations/ReservationsList';
+import './Search.css';
 
 export default function Search() {
   const [number, setNumber] = useState({
@@ -42,33 +43,35 @@ export default function Search() {
 
   return (
     <div className="main">
-      <div className="searchBox">
-        <form className="searchForm mt-3" onSubmit={handleSubmit}>
-          <label>
-            <h4>Search</h4>
-            <input
-              style={{ width: '400px' }}
-              name="mobile_number"
-              type="text"
-              placeholder="Enter a customer's phone number"
-              required
-              ref={inputRef}
-              value={number.mobile_number}
-              onChange={handleChange}
-            />
-            <button className="btn btn-primary ml-2" type="submit">
-              Find
-            </button>
-          </label>
-        </form>
+      <div className="header">
+        <h1>Search For A Reservation</h1>
       </div>
+      <form className="search-form mt-3" onSubmit={handleSubmit}>
+        <label>
+          <input
+            style={{ width: '400px' }}
+            name="mobile_number"
+            type="text"
+            placeholder="Enter a customer's phone number"
+            required
+            ref={inputRef}
+            value={number.mobile_number}
+            onChange={handleChange}
+          />
+        </label>
+        <button className="btn" type="submit">
+          Find
+        </button>
+      </form>
       <div>
         <ErrorAlert error={reservationsError} />
       </div>
       <div className="content">
         {reservations.length !== 0 && (
           <>
-            <h5>Reservations matching number: {number.mobile_number}</h5>
+            <h5 className="number-confirm">
+              Reservations matching number: {number.mobile_number}
+            </h5>
             <ReservationsList reservations={reservations} />
           </>
         )}
