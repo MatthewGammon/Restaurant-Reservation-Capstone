@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 import { previous, next } from '../utils/date-time';
 import ReservationsList from '../reservations/ReservationsList';
 import TablesView from '../tables/TablesView';
+import './Dashboard.css';
 
 /**
  * Defines the dashboard page.
@@ -49,30 +50,24 @@ function Dashboard({ date }) {
   return (
     <main>
       <ErrorAlert error={reservationsError} />
-      <h1>Dashboard</h1>
-      <div className="d-md-flex mb-3">
-        <h4 className="mb-0">Reservations for date: {date}</h4>
+      <div className="header">
+        <div className="header-text">
+          <h1 className="">Dashboard</h1>
+          <h4 className="">Reservations for date: {date}</h4>
+        </div>
+        <div className="buttons">
+          <button className="btn mr-2" onClick={() => handlePreviousDate(date)}>
+            previous
+          </button>
+          <button className="btn mr-2" onClick={() => handleNextDate(date)}>
+            next
+          </button>
+          <button className="btn " onClick={() => handleTodayClick()}>
+            today
+          </button>
+        </div>
       </div>
-      <div className="mb-3">
-        <button
-          className="btn btn-secondary mr-2"
-          onClick={() => handlePreviousDate(date)}
-        >
-          previous
-        </button>
-        <button
-          className="btn btn-secondary mr-2"
-          onClick={() => handleNextDate(date)}
-        >
-          next
-        </button>
-        <button
-          className="btn btn-secondary"
-          onClick={() => handleTodayClick()}
-        >
-          today
-        </button>
-      </div>
+
       <div>
         <ReservationsList reservations={reservations} />
       </div>
