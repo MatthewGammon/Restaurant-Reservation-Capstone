@@ -67,8 +67,8 @@ A Restaurant Reservation System that is used to keep track of guest reservations
 {
             "table_id": 8,
             "table_name": "Monster Seats",
-            "capacity": 12,
-            "reservation_id": 23
+            "capacity": 269,
+            "reservation_id": 13
         }
 ```
 ## Installation
