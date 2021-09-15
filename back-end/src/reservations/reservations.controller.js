@@ -42,25 +42,6 @@ function hasValidProperties(req, res, next) {
   next();
 }
 
-// function hasProperties(req, res, next) {
-//   const keys = Object.keys(req.body.data);
-//   if (keys.length === 0) {
-//     next({
-//       status: 400,
-//       message: `You can not submit a request with no properties. Please start by entering a 'first_name' property.`,
-//     });
-//   }
-//   for (let prop of validProperties) {
-//     if (!keys.includes(prop)) {
-//       next({
-//         status: 400,
-//         message: `A ${prop} property is required.`,
-//       });
-//     }
-//   }
-//   next();
-// }
-
 function hasFirstName(req, res, next) {
   const index = validProperties.indexOf('first_name');
   const { first_name } = req.body.data;
@@ -278,7 +259,6 @@ module.exports = {
   create: [
     asyncErrorBoundary(hasData),
     asyncErrorBoundary(hasValidProperties),
-    // asyncErrorBoundary(hasProperties),
     asyncErrorBoundary(hasFirstName),
     asyncErrorBoundary(hasLastName),
     asyncErrorBoundary(hasMobileNumber),
