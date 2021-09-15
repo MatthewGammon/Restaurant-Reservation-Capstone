@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import ErrorAlert from '../layout/ErrorAlert';
 import { clearTable } from '../utils/api';
+import './TablesView.css';
 
 export default function TablesView({ tables, loadDashboard }) {
   const [finishError, setFinishError] = useState(null);
@@ -25,50 +26,38 @@ export default function TablesView({ tables, loadDashboard }) {
   }
 
   const content = tables.map((table, i) => (
-    <div key={i} className="d-flex">
-      <div className="col-4">
-        <p>{table.table_name}</p>
-      </div>
-      <div className="col-4">
-        <p>{table.capacity}</p>
-      </div>
-      <div className="col-1">
-        <h5 data-table-id-status={`${table.table_id}`}>
-          {table.reservation_id ? 'Occupied' : 'Free'}
-        </h5>
-      </div>
-      <div className="col-3">
-        {' '}
-        {table.reservation_id && (
-          <button
-            type="button"
-            className="btn btn-warning btn-sm"
-            data-table-id-finish={`${table.table_id}`}
-            onClick={() => handleFinish(table.table_id, table.reservation_id)}
-          >
-            Finish
-          </button>
-        )}
-      </div>
+    <div className="table" key={table.table_id}>
+      <div class="card-header">{table.table_name}</div>
+      <ul class="list-group">
+        <li class="list-group-item">Capacity: {table.capacity}</li>
+        <li class="list-group-item" data-table-id-status={`${table.table_id}`}>
+          Status: {table.reservation_id ? 'Occupied' : 'Free'}
+        </li>
+        <div className="list-group-item card-footer ">
+          {table.reservation_id && (
+            <button
+              type="button"
+              className="btn"
+              data-table-id-finish={`${table.table_id}`}
+              onClick={() => handleFinish(table.table_id, table.reservation_id)}
+            >
+              Finish
+            </button>
+          )}
+        </div>
+      </ul>
     </div>
   ));
 
   return (
     <main>
-      <ErrorAlert error={finishError} />
-      <h4>Tables</h4>
-      <div className="d-flex">
-        <div className="col-4">
-          <h5>Table Name</h5>
-        </div>
-        <div className="col-4">
-          <h5>Capacity</h5>
-        </div>
-        <div className="col-1">
-          <h5>Status</h5>
-        </div>
+      <div className="error-alert">
+        <ErrorAlert error={finishError} />
       </div>
-      <div>{tables && content}</div>
+      <div className="tables-header">
+        <h3>Tables</h3>
+      </div>
+      <div className="tables-list">{content}</div>
     </main>
   );
 }

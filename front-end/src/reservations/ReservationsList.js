@@ -1,6 +1,7 @@
 import { React, useState } from 'react';
 import { updateStatus } from '../utils/api';
 import ErrorAlert from '../layout/ErrorAlert';
+import './ReservationsList.css';
 
 export default function ReservationsList({ reservations }) {
   const [cancelError, setCancelError] = useState(null);
@@ -24,8 +25,8 @@ export default function ReservationsList({ reservations }) {
   }
 
   const content = reservations.map((reservation, index) => (
-    <div key={index}>
-      <div className="card-header bg-dark text-light">
+    <div className="reservation" key={reservation.reservation_id}>
+      <div className="card-header">
         {reservation.first_name} {reservation.last_name}
       </div>
       <ul className="list-group">
@@ -45,23 +46,23 @@ export default function ReservationsList({ reservations }) {
         >
           Status: {reservation.status}{' '}
         </li>
-        <div className="card-footer bg-transparent border-dark">
+        <div className="list-group-item card-footer ">
           {reservation.status === 'booked' && (
             <>
               <a href={`/reservations/${reservation.reservation_id}/seat`}>
-                <button type="button" className="btn btn-primary btn-sm mr-2">
+                <button type="button" className="btn">
                   Seat
                 </button>
               </a>
               <a href={`/reservations/${reservation.reservation_id}/edit`}>
-                <button type="button" className="btn btn-warning btn-sm mr-2">
+                <button type="button" className="btn">
                   Edit
                 </button>
               </a>
               <button
                 data-reservation-id-cancel={reservation.reservation_id}
                 type="button"
-                className="btn btn-danger btn-sm"
+                className="btn"
                 onClick={() => handleCancel(reservation.reservation_id)}
               >
                 Cancel
@@ -74,11 +75,11 @@ export default function ReservationsList({ reservations }) {
   ));
 
   return (
-    <div className="reservations-list">
+    <div>
       <div>
         <ErrorAlert error={cancelError} />
       </div>
-      <div>{content}</div>
+      <div className="reservations-list">{content}</div>
     </div>
   );
 }
