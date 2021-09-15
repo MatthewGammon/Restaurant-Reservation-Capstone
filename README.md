@@ -14,7 +14,7 @@ A Restaurant Reservation System that is used to keep track of guest reservations
 ![create-a-reservation](https://user-images.githubusercontent.com/71313420/133494491-629fd7cb-86c4-4b7e-844f-2503f11d6f6a.png)
 ### Create new Table
 ![create-a-table](https://user-images.githubusercontent.com/71313420/133494492-a1415c6d-0c2a-41a6-ba0c-3a3f856de897.png)
-### Searh for Reservation
+### Search for Reservation
 ![search-for-reservation](https://user-images.githubusercontent.com/71313420/133494498-c131dd46-a263-408b-925e-d55281a427c5.png)
 ### Seat a Reservation
 ![seat-a-reservation](https://user-images.githubusercontent.com/71313420/133494500-d7ca6477-9023-4d98-a055-dd8299847970.png)
@@ -42,7 +42,6 @@ A Restaurant Reservation System that is used to keep track of guest reservations
 | /reservations/:reservation_id/status      | PUT  | 200     | Updates the status of the reservation for the given ID |
 | /tables   | GET  | 200      | Returns a list of tables     |
 | /tables   | POST  | 201      | Creates a new table     |
-| /tables/:table_id   | GET   |   200   | Returns the table for the given ID     |
 | /tables/:table_id/seat   | PUT | 200      | Seats a reservation at the given table_id     |
 | /tables/:table_id/seat   | DELETE  | 200      | Changes the occupied status to be unoccupied for the given table_id     |
 
