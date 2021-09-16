@@ -57,10 +57,14 @@ export default function TablesView({ tables, loadDashboard }) {
       <div className="error-alert">
         <ErrorAlert error={finishError} />
       </div>
-      <div className="tables-header">
-        <h3>Tables</h3>
-      </div>
-      <div className="tables-list">{content}</div>
+      {tables.length !== 0 && (
+        <>
+          <div className="tables-header">
+            <h3>Tables</h3>
+          </div>
+          <div className="tables-list">{content}</div>
+        </>
+      )}
     </main>
   );
 }
