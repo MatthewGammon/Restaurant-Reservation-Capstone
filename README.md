@@ -6,7 +6,13 @@
 
 
 ## Project Summary
-A full stack web application built with React, Node, Express, CSS, Bootstrap and connected to a PostgreSQL database. The development process included the creation and use of a Trello board, Github Projects, and frequent deployment with Heroku.
+A full stack web application built with React, Node, Express, CSS, Bootstrap and connected to a PostgreSQL database.
+
+The development process included the use of the following tools and practices:
+* Project management tools including Trello and Github projects to create and track user stories and subtasks.
+* New features (user stories) were developed on separate branches and merged into main after passing end to end tests.
+* Frequent deployments to production with Heroku.
+
 This application allows a user to create, edit, and cancel a reservation. Create a table, seat a reservation to a table, and finish a table. As well as search for reservations by phone number(partial or complete). 
 
 [Trello Board](https://trello.com/b/z4kS34b7/restaurant-reservation-capstone) 
