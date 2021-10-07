@@ -68,7 +68,7 @@ export default function ReservationsList({ reservations }) {
                 Cancel
               </button>
             </>
-          )) || <p className="hidden-text">HIDE ME</p>}
+          )) || <p className="no-buttons"></p>}
         </div>
       </ul>
     </div>

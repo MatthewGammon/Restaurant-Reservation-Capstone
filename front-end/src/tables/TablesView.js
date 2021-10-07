@@ -46,7 +46,7 @@ export default function TablesView({ tables, loadDashboard }) {
             >
               Finish
             </button>
-          )) || <p className="hidden-text">HIDE ME</p>}
+          )) || <p className="no-buttons"></p>}
         </div>
       </ul>
     </div>
