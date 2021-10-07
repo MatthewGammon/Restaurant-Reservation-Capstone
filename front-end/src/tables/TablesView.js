@@ -37,7 +37,7 @@ export default function TablesView({ tables, loadDashboard }) {
           Status: {table.reservation_id ? 'Occupied' : 'Free'}
         </li>
         <div className="list-group-item card-footer ">
-          {table.reservation_id && (
+          {(table.reservation_id && (
             <button
               type="button"
               className="btn"
@@ -46,7 +46,7 @@ export default function TablesView({ tables, loadDashboard }) {
             >
               Finish
             </button>
-          )}
+          )) || <p className="hidden-text">HIDE ME</p>}
         </div>
       </ul>
     </div>
