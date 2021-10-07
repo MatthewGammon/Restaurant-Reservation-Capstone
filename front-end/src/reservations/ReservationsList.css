@@ -44,3 +44,8 @@
   display: flex;
   justify-content: center;
 }
+
+.hidden-text {
+  padding-top: 2px;
+  height: 32px;
+}

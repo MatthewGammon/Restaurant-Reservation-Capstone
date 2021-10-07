@@ -47,7 +47,7 @@ export default function ReservationsList({ reservations }) {
           Status: {reservation.status}{' '}
         </li>
         <div className="list-group-item card-footer ">
-          {reservation.status === 'booked' && (
+          {(reservation.status === 'booked' && (
             <>
               <a href={`/reservations/${reservation.reservation_id}/seat`}>
                 <button type="button" className="btn">
@@ -68,7 +68,7 @@ export default function ReservationsList({ reservations }) {
                 Cancel
               </button>
             </>
-          )}
+          )) || <p className="hidden-text">HIDE ME</p>}
         </div>
       </ul>
     </div>
