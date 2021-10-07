@@ -45,7 +45,6 @@
   justify-content: center;
 }
 
-.hidden-text {
-  padding-top: 2px;
+.no-buttons {
   height: 32px;
 }
