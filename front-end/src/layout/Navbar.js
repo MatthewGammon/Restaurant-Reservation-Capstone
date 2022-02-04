@@ -12,7 +12,7 @@ export default function Navbar() {
     }
   }
   return (
-    <nav class="nav">
+    <nav className="nav">
       <div className="topnav" id="myTopnav">
         <a href="/" className="active">
           <span className="oi oi-dashboard" />
@@ -35,7 +35,7 @@ export default function Navbar() {
           <i className="fa fa-bars"></i>
         </a>
       </div>
-      <div class="nav-header">
+      <div className="nav-header">
         <h3>Periodic Tables</h3>
       </div>
     </nav>
