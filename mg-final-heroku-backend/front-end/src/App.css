@@ -1,0 +1,12 @@
+#root,
+html {
+  min-height: 100vh;
+  background-image: linear-gradient(
+    to right top,
+    #51c3ec,
+    #49c1e9,
+    #40bfe7,
+    #36bde4,
+    #2abbe1
+  );
+}
