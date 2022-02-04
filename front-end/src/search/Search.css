@@ -7,6 +7,14 @@ input {
   border-radius: 4px;
 }
 
+.search-reservations {
+  text-align: center;
+  background-color: white;
+  width: 85%;
+  margin: 0 auto;
+  padding: 1em;
+}
+
 .search-form .btn {
   text-align: center;
   color: white;
@@ -25,4 +33,10 @@ input {
 .number-confirm {
   font-family: Georgia, 'Times New Roman', Times, serif;
   font-size: 30px;
+}
+
+@media only screen and (max-width: 650px) {
+  .search-reservations {
+    width: 100%;
+  }
 }
