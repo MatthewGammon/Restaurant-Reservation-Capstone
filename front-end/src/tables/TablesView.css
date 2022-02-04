@@ -1,22 +1,22 @@
 .tables-list {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   gap: 1em;
-  justify-content: space-evenly;
-  margin-top: 1.5em;
+  margin: 1.5em auto;
 }
 
 .table {
-  font-family: 'Times New Roman', Times, serif;
-  font-size: 1.25rem;
+  margin-bottom: 1em;
+  font-size: 1.125rem;
 }
 
 .tables-header {
   text-align: center;
   background-color: black;
   color: white;
-  font-family: Georgia, 'Times New Roman', Times, serif;
+  border-radius: 20px;
   padding: 1em 0em;
+  margin-bottom: 0.75em;
 }
 
 .tables-header h3 {
@@ -27,7 +27,6 @@
 .finish-button {
   color: white;
   background-color: black;
-  border: 1px solid #ffa400;
   border-radius: 10px;
   margin: 0.5em;
   padding: 0.5em 1.125em;
@@ -50,5 +49,6 @@
   .tables-list {
     display: flex;
     flex-direction: column;
+    gap: 0em;
   }
 }
