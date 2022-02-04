@@ -40,7 +40,7 @@ export default function TablesView({ tables, loadDashboard }) {
           {(table.reservation_id && (
             <button
               type="button"
-              className="btn"
+              className="finish-button"
               data-table-id-finish={`${table.table_id}`}
               onClick={() => handleFinish(table.table_id, table.reservation_id)}
             >
