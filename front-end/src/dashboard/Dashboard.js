@@ -48,11 +48,11 @@ function Dashboard({ date }) {
   };
 
   return (
-    <main>
-      <div className="header">
-        <div className="header-text">
-          <h1 className="">Dashboard</h1>
-          <h4 className="">Reservations for date: {date}</h4>
+    <main className="main">
+      <div className="dashboard-header">
+        <div className="dashboard-header-text">
+          <h1>Dashboard</h1>
+          <h4>Reservations for date: {date}</h4>
         </div>
         <div className="buttons">
           <button className="btn mr-2" onClick={() => handlePreviousDate(date)}>
@@ -66,18 +66,12 @@ function Dashboard({ date }) {
           </button>
         </div>
       </div>
-      <div>
-        <ErrorAlert error={reservationsError} />
-      </div>
-      <div>
-        <ReservationsList reservations={reservations} />
-      </div>
+      <ErrorAlert error={reservationsError} />
+      <ReservationsList reservations={reservations} />
       <div>
         <ErrorAlert error={tablesError} />
       </div>
-      <div>
-        <TablesView tables={tables} date={date} loadDashboard={loadDashboard} />
-      </div>
+      <TablesView tables={tables} date={date} loadDashboard={loadDashboard} />
     </main>
   );
 }
