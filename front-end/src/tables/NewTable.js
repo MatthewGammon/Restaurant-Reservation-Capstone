@@ -36,7 +36,7 @@ export default function NewTable() {
   };
 
   return (
-    <div className="main">
+    <div className="new-table">
       <div className="header">
         <h1>Create A New Table</h1>
       </div>

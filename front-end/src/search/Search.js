@@ -42,7 +42,7 @@ export default function Search() {
   }
 
   return (
-    <div className="main">
+    <div className="search-reservations">
       <div className="header">
         <h1>Search For A Reservation</h1>
       </div>

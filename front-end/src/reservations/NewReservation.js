@@ -73,7 +73,7 @@ export default function NewReservation() {
   }
 
   return (
-    <div className="main">
+    <div className="new-reservation">
       <div className="header">
         <h1>Create A New Reservation</h1>
       </div>

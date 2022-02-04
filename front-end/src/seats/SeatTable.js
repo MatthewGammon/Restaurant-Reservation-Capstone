@@ -43,7 +43,7 @@ export default function SeatTable() {
   ));
 
   return (
-    <div className="main">
+    <div className="seat-reservation">
       <div className="header">
         <h1>Seat A Reservation</h1>
       </div>
