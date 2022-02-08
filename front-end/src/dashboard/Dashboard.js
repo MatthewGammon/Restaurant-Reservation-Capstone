@@ -50,18 +50,16 @@ function Dashboard({ date }) {
   return (
     <main className="main">
       <div className="dashboard-header">
-        <div className="dashboard-header-text">
-          <h1>Dashboard</h1>
-          <h4>Reservations for date: {date}</h4>
-        </div>
-        <div className="buttons">
+        <h1>Dashboard</h1>
+        <h4>Reservations for date: {date}</h4>
+        <div className="dashboard-buttons">
           <button className="btn mr-2" onClick={() => handlePreviousDate(date)}>
             previous
           </button>
           <button className="btn mr-2" onClick={() => handleNextDate(date)}>
             next
           </button>
-          <button className="btn " onClick={() => handleTodayClick()}>
+          <button className="btn" onClick={() => handleTodayClick()}>
             today
           </button>
         </div>
