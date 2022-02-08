@@ -1,7 +1,7 @@
 # Thinkful-Final-Capstone: Restaurant Reservation System
 
 ## Deployed Application
-[Quick Rez: Reservation and Seating](https://mg-final-cap-client.herokuapp.com/dashboard)
+[Quick Rez: Reservation and Seating](https://mg-final-cap-client.herokuapp.com/)
 
 
 
