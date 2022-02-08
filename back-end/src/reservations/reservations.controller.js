@@ -99,7 +99,8 @@ function hasValidDate(req, res, next) {
   const localSubmit = new Date(submitTime);
   // the offset comes in from the client in  minutes. multiply by 60 to get the seconds and by 1000 to get ms. subtract that from the current time.
   const currentTime = new Date(time - utcOffSet * 60 * 1000);
-  const formattedCurrentTime = currentTime.toString().slice(0, 22);
+  const returnDate = currentTime.toString().slice(0, 15);
+  const formattedCurrentTime = currentTime.toString().slice(15, 21);
 
   const invalidDate = 2;
   const dayAsNum = localSubmit.getDay();
@@ -120,7 +121,7 @@ function hasValidDate(req, res, next) {
   if (localSubmit < currentTime) {
     next({
       status: 400,
-      message: `The date and time cannot be in the past. Please select a future date. It is currently ${formattedCurrentTime}.`,
+      message: `The date and time cannot be in the past. Please select a future date. It is currently ${formattedCurrentTime} on ${returnDate}.`,
     });
   }
   if (dayAsNum === invalidDate) {
