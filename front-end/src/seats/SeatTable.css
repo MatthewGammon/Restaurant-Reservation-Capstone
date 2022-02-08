@@ -21,3 +21,9 @@ select {
   font-family: Georgia, 'Times New Roman', Times, serif;
   margin-right: 15px;
 }
+
+@media only screen and (max-width: 650px) {
+  .seat-reservation {
+    width: 100%;
+  }
+}
