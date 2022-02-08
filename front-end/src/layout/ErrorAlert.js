@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 /**
  * Defines the alert message to render if the specified error is truthy.
@@ -10,9 +10,7 @@ import React from "react";
 
 function ErrorAlert({ error }) {
   return (
-    error && (
-      <div className="alert alert-danger m-2">Error: {error.message}</div>
-    )
+    error && <div className="alert alert-danger">Error: {error.message}</div>
   );
 }
 
