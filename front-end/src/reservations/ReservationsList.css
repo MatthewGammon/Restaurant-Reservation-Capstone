@@ -27,7 +27,7 @@
   background-color: black;
   border-radius: 10px;
   margin: 0.5em;
-  padding: 0.5em 1.125em;
+  padding: 0.5em 1.5em;
   font-size: 1rem;
 }
 
@@ -50,5 +50,12 @@
   .reservations-list {
     display: flex;
     flex-direction: column;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .list-group-item .btn {
+    font-size: 0.875rem;
+    padding: 0.25em 1em;
   }
 }

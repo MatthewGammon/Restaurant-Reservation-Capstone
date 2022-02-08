@@ -13,7 +13,7 @@
   color: white;
   margin: 2em auto;
   padding: 1.5em;
-  border-radius: 30px;
+  border-radius: 20px;
 }
 
 .dashboard-header-text {
@@ -21,10 +21,11 @@
 }
 
 .dashboard-header .btn {
-  font-size: 20px;
+  font-size: 1rem;
   color: black;
   background-color: white;
   transition-duration: 0.3s;
+  padding: 0.5em 1.5em;
 }
 
 .dashboard-header .btn:hover {
@@ -38,5 +39,31 @@
     width: 100%;
     margin: 0 auto;
     padding: 1em;
+  }
+}
+
+@media only screen and (max-width: 750px) {
+  .dashboard-header h1 {
+    font-size: 2rem;
+  }
+
+  .dashboard-header h4 {
+    font-size: 1.25rem;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .dashboard-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .dashboard-header h4 {
+    font-size: 1rem;
+  }
+
+  .dashboard-buttons .btn {
+    font-size: 0.875rem;
+    margin: 0.5em;
+    padding: 0.25em 1em;
   }
 }

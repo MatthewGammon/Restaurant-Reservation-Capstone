@@ -56,7 +56,7 @@
   }
 }
 
-@media screen and (max-width: 750px) {
+@media only screen and (max-width: 750px) {
   .topnav a:not(:first-child),
   .topnav select {
     display: none;
@@ -89,5 +89,17 @@
 
   .topnav.responsive select {
     display: inline;
+  }
+
+  .nav-header h3 {
+    font-size: 3.5rem;
+    padding: 0.5em;
+  }
+}
+
+@media only screen and (max-width: 300px) {
+  .nav-header h3 {
+    font-size: 2.5rem;
+    padding: 0.5em;
   }
 }

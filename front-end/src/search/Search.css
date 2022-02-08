@@ -1,7 +1,6 @@
-input {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
+.search-form input {
+  padding: 0.75em 1.25em;
+  margin: 0.5em 0em;
   box-sizing: border-box;
   border: 1px solid #08b2e3;
   border-radius: 4px;
@@ -15,24 +14,26 @@ input {
   padding: 1em;
 }
 
+.search-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1em;
+}
+
 .search-form .btn {
   text-align: center;
   color: white;
   background-color: black;
   font-family: Georgia, 'Times New Roman', Times, serif;
-  margin-left: 10px;
-  width: 15%;
+  padding: 0.5em 1.5em;
 }
 
-.search-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.number-confirm {
+.match-header {
   font-family: Georgia, 'Times New Roman', Times, serif;
-  font-size: 30px;
+  font-size: 1.875rem;
+  margin-bottom: 0em;
+  padding: 0.5em;
 }
 
 @media only screen and (max-width: 650px) {
