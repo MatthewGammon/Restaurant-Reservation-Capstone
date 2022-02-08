@@ -225,6 +225,20 @@ function checkBooked(req, res, next) {
   next();
 }
 
+function searchHasValidNumber(req, res, next) {
+  const { mobile_number } = req.query;
+  if (mobile_number) {
+    const removedDashes = mobile_number.split('-').join('');
+    if (isNaN(removedDashes)) {
+      next({
+        status: 400,
+        message: `Please enter a number separated by '-' only. Eg. 123-123-1234`,
+      });
+    }
+  }
+  next();
+}
+
 async function create(req, res, next) {
   const newReservation = await service.create(req.body.data);
   res.status(201).json({ data: newReservation });
@@ -268,33 +282,33 @@ async function list(req, res) {
 
 module.exports = {
   create: [
-    asyncErrorBoundary(hasData),
-    asyncErrorBoundary(hasValidProperties),
-    asyncErrorBoundary(hasFirstName),
-    asyncErrorBoundary(hasLastName),
-    asyncErrorBoundary(hasMobileNumber),
-    asyncErrorBoundary(hasValidDate),
-    asyncErrorBoundary(hasValidTime),
-    asyncErrorBoundary(hasValidPartySize),
-    asyncErrorBoundary(checkBooked),
+    hasData,
+    hasValidProperties,
+    hasFirstName,
+    hasLastName,
+    hasMobileNumber,
+    hasValidDate,
+    hasValidTime,
+    hasValidPartySize,
+    checkBooked,
     asyncErrorBoundary(create),
   ],
   read: [asyncErrorBoundary(reservationExists), asyncErrorBoundary(read)],
   update: [
     asyncErrorBoundary(reservationExists),
-    asyncErrorBoundary(hasFirstName),
-    asyncErrorBoundary(hasLastName),
-    asyncErrorBoundary(hasMobileNumber),
-    asyncErrorBoundary(hasValidDate),
-    asyncErrorBoundary(hasValidTime),
-    asyncErrorBoundary(hasValidPartySize),
+    hasFirstName,
+    hasLastName,
+    hasMobileNumber,
+    hasValidDate,
+    hasValidTime,
+    hasValidPartySize,
     asyncErrorBoundary(update),
   ],
   updateStatus: [
     asyncErrorBoundary(reservationExists),
-    asyncErrorBoundary(checkStatus),
-    asyncErrorBoundary(validateFinish),
+    checkStatus,
+    validateFinish,
     asyncErrorBoundary(updateStatus),
   ],
-  list: asyncErrorBoundary(list),
+  list: [searchHasValidNumber, asyncErrorBoundary(list)],
 };
