@@ -46,10 +46,9 @@ export default function Search() {
       <div className="header">
         <h1>Search For A Reservation</h1>
       </div>
-      <form className="search-form mt-3" onSubmit={handleSubmit}>
+      <form className="search-form" onSubmit={handleSubmit}>
         <label>
           <input
-            style={{ width: '400px' }}
             name="mobile_number"
             type="text"
             placeholder="Enter a customer's phone number"
@@ -63,25 +62,24 @@ export default function Search() {
           Find
         </button>
       </form>
-      <div>
-        <ErrorAlert error={reservationsError} />
-      </div>
-      <div className="content">
-        {reservations.length !== 0 && (
-          <>
-            <h5 className="number-confirm">
-              Reservations matching number: {number.mobile_number}
-            </h5>
-            <ReservationsList reservations={reservations} />
-          </>
-        )}
+      {reservationsError && (
+        <div className="reservations-error">
+          <ErrorAlert error={reservationsError} />
+        </div>
+      )}
 
-        {searched && reservations.length === 0 ? (
-          <h3>No reservations found</h3>
-        ) : (
-          ''
-        )}
-      </div>
+      {reservations.length !== 0 && (
+        <div class="search-results">
+          <h5 className="match-header">We found the following matches:</h5>
+          <ReservationsList reservations={reservations} />
+        </div>
+      )}
+
+      {searched && reservations.length === 0 ? (
+        <h3>No reservations found</h3>
+      ) : (
+        ''
+      )}
     </div>
   );
 }
