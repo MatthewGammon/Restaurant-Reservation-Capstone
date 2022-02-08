@@ -23,6 +23,8 @@ export default function NewReservation() {
   const history = useHistory();
   const params = useParams();
   const resId = params.reservationId;
+  const date = new Date();
+  const utcOffSet = Math.floor(date.getTimezoneOffset());
 
   const inputRef = useRef();
 
@@ -51,10 +53,10 @@ export default function NewReservation() {
     event.preventDefault();
     try {
       if (resId) {
-        await updateReservation(reservation);
+        await updateReservation(reservation, utcOffSet);
         history.push(`/dashboard?date=${reservation.reservation_date}`);
       } else {
-        await createReservation(reservation);
+        await createReservation(reservation, utcOffSet);
         history.push(`/dashboard?date=${reservation.reservation_date}`);
       }
     } catch (error) {

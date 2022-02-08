@@ -58,12 +58,12 @@ async function fetchJson(url, options, onCancel) {
  *  a promise that resolves to a possibly empty array of reservation saved in the database.
  */
 
-export async function createReservation(reservation, signal) {
+export async function createReservation(reservation, utcOffSet, signal) {
   const url = `${API_BASE_URL}/reservations`;
   const options = {
     method: 'POST',
     headers,
-    body: JSON.stringify({ data: reservation }),
+    body: JSON.stringify({ data: reservation, date: { utcOffSet } }),
     signal,
   };
   return await fetchJson(url, options);
@@ -81,12 +81,12 @@ export async function readReservation(reservationId, signal) {
     .then(formatReservationTime);
 }
 
-export async function updateReservation(reservation, signal) {
+export async function updateReservation(reservation, utcOffSet, signal) {
   const url = `${API_BASE_URL}/reservations/${reservation.reservation_id}`;
   const options = {
     method: 'PUT',
     headers,
-    body: JSON.stringify({ data: reservation }),
+    body: JSON.stringify({ data: reservation, date: { utcOffSet } }),
     signal,
   };
   return await fetchJson(url, options, reservation);
