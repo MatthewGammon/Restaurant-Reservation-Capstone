@@ -17,6 +17,8 @@ This application allows a user to create, edit, and cancel a reservation. Create
 
 [Trello Board](https://trello.com/b/z4kS34b7/restaurant-reservation-capstone) 
 
+## Desktop View
+
 ### The Dashboard
 ![dashboard](https://user-images.githubusercontent.com/71313420/153055345-d8f364e7-763f-499a-b6d3-33876ab47ca9.png)
 ### Create new Reservation
@@ -27,6 +29,21 @@ This application allows a user to create, edit, and cancel a reservation. Create
 ![search-for-reservation](https://user-images.githubusercontent.com/71313420/153055136-9958b7f4-05de-4709-927d-78ff552ed9f2.png)
 ### Seat a Reservation
 ![seat-a-reservation](https://user-images.githubusercontent.com/71313420/153055169-5b22a6b4-c1ba-4df3-9047-9e649e7f7f75.png)
+
+## Mobile View
+As seen on a Samsung Galaxy S20 Ultra
+
+### Dashboard
+![dashboard-mobile](https://user-images.githubusercontent.com/71313420/153056451-fee4acb0-5da3-4c12-9d53-c24ab6382342.png)
+### New Reservation
+![create-reservation-mobile](https://user-images.githubusercontent.com/71313420/153056607-87f56527-fdb1-4db3-ac46-32689044283f.png)
+### New Table
+![create-table-mobile](https://user-images.githubusercontent.com/71313420/153056681-6be2171d-dce6-44ab-be39-e66eb2f0bbb6.png)
+### Search Reservations
+![search-reservations-mobile](https://user-images.githubusercontent.com/71313420/153056742-ba1d8813-6b99-427a-9520-0628441ae691.png)
+### Seat Reservation
+![seat-reservation-mobile](https://user-images.githubusercontent.com/71313420/153056846-f7188005-6a31-4588-b69f-0d231dbf7d3e.png)
+
 
 
 ## Technologies and Tools
