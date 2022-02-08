@@ -75,11 +75,14 @@ export default function ReservationsList({ reservations }) {
   ));
 
   return (
-    <div>
-      <div>
-        <ErrorAlert error={cancelError} />
-      </div>
+    <>
+      {cancelError && (
+        <div>
+          <ErrorAlert error={cancelError} />
+        </div>
+      )}
+
       <div className="reservations-list">{content}</div>
-    </div>
+    </>
   );
 }
