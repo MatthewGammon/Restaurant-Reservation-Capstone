@@ -89,10 +89,21 @@ function hasMobileNumber(req, res, next) {
 
 function hasValidDate(req, res, next) {
   const { reservation_date, reservation_time } = req.body.data;
-  const invalidDate = 2;
-  const submitDate = new Date(reservation_date + ' ' + reservation_time);
-  const dayAsNum = submitDate.getDay();
+  const { utcOffSet } = req.body.date;
+
   const today = new Date();
+  const time = today.getTime();
+  const submitDate = new Date(reservation_date + ' ' + reservation_time);
+  const submitTime = submitDate.getTime();
+
+  const localSubmit = new Date(submitTime);
+  // the offset comes in from the client in  minutes. multiply by 60 to get the seconds and by 1000 to get ms. subtract that from the current time.
+  const currentTime = new Date(time - utcOffSet * 60 * 1000);
+  const formattedCurrentTime = currentTime.toString().slice(0, 24);
+
+  const invalidDate = 2;
+  const dayAsNum = localSubmit.getDay();
+  console.log(dayAsNum);
 
   const dateFormat = /\d\d\d\d-\d\d-\d\d/;
   if (!reservation_date) {
@@ -107,10 +118,10 @@ function hasValidDate(req, res, next) {
       message: `the reservation_date must be a valid date in the format 'YYYY-MM-DD'`,
     });
   }
-  if (submitDate < today) {
+  if (localSubmit < currentTime) {
     next({
       status: 400,
-      message: `The date and time cannot be in the past. Please select a future date. Today is ${today}.`,
+      message: `The date and time cannot be in the past. Please select a future date. It is currently ${formattedCurrentTime}.`,
     });
   }
   if (dayAsNum === invalidDate) {
@@ -147,7 +158,7 @@ function hasValidTime(req, res, next) {
     if (reservation_time >= '21:30:00') {
       next({
         status: 400,
-        message: `The restaurant closes at 22:30 (10:30 pm). Please schedule your reservation at least one hour before close.`,
+        message: `The restaurant closes at 21:30 (10:30 pm). Please schedule your reservation at least one hour before close.`,
       });
     }
   }
