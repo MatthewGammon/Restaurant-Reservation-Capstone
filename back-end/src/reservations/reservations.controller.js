@@ -99,11 +99,10 @@ function hasValidDate(req, res, next) {
   const localSubmit = new Date(submitTime);
   // the offset comes in from the client in  minutes. multiply by 60 to get the seconds and by 1000 to get ms. subtract that from the current time.
   const currentTime = new Date(time - utcOffSet * 60 * 1000);
-  const formattedCurrentTime = currentTime.toString().slice(0, 24);
+  const formattedCurrentTime = currentTime.toString().slice(0, 22);
 
   const invalidDate = 2;
   const dayAsNum = localSubmit.getDay();
-  console.log(dayAsNum);
 
   const dateFormat = /\d\d\d\d-\d\d-\d\d/;
   if (!reservation_date) {
@@ -158,7 +157,7 @@ function hasValidTime(req, res, next) {
     if (reservation_time >= '21:30:00') {
       next({
         status: 400,
-        message: `The restaurant closes at 21:30 (10:30 pm). Please schedule your reservation at least one hour before close.`,
+        message: `The restaurant closes at 22:30 (10:30 pm). Please schedule your reservation at least one hour before close.`,
       });
     }
   }
