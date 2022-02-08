@@ -18,15 +18,15 @@ This application allows a user to create, edit, and cancel a reservation. Create
 [Trello Board](https://trello.com/b/z4kS34b7/restaurant-reservation-capstone) 
 
 ### The Dashboard
-![dashboard](https://user-images.githubusercontent.com/71313420/153054547-e8b5178f-ec51-4dac-9d08-8227d08b9461.png)
+![dashboard](https://user-images.githubusercontent.com/71313420/153054977-d5423e71-7bad-4933-b800-89eaad64222b.png)
 ### Create new Reservation
-![create-a-reservation](https://user-images.githubusercontent.com/71313420/153054430-b7ecdb5b-2bd6-4b9d-a7ed-8b1dca003031.png)
+![create-a-reservation](https://user-images.githubusercontent.com/71313420/153055037-c86bf0ba-fb18-41a9-ae16-97d41f9b4a92.png)
 ### Create new Table
-![create-a-table](https://user-images.githubusercontent.com/71313420/153054261-160e7fd9-09fc-4231-a907-459d170660f3.png)
+![create-a-table](https://user-images.githubusercontent.com/71313420/153055086-b7c7c8dd-c199-4a82-8576-926e83038535.png)
 ### Search for Reservation
-![search-for-reservation](https://user-images.githubusercontent.com/71313420/153054156-8c35cb48-20e9-4df4-b45a-aed36b9b73d5.png)
+![search-for-reservation](https://user-images.githubusercontent.com/71313420/153055136-9958b7f4-05de-4709-927d-78ff552ed9f2.png)
 ### Seat a Reservation
-![seat-a-reservation](https://user-images.githubusercontent.com/71313420/133494500-d7ca6477-9023-4d98-a055-dd8299847970.png)
+![seat-a-reservation](https://user-images.githubusercontent.com/71313420/153055169-5b22a6b4-c1ba-4df3-9047-9e649e7f7f75.png)
 
 
 ## Technologies and Tools
