@@ -18,7 +18,7 @@ This application allows a user to create, edit, and cancel a reservation. Create
 [Trello Board](https://trello.com/b/z4kS34b7/restaurant-reservation-capstone) 
 
 ### The Dashboard
-![dashboard](https://user-images.githubusercontent.com/71313420/153054977-d5423e71-7bad-4933-b800-89eaad64222b.png)
+![dashboard](https://user-images.githubusercontent.com/71313420/153055345-d8f364e7-763f-499a-b6d3-33876ab47ca9.png)
 ### Create new Reservation
 ![create-a-reservation](https://user-images.githubusercontent.com/71313420/153055037-c86bf0ba-fb18-41a9-ae16-97d41f9b4a92.png)
 ### Create new Table
