@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url('../images/banner.jpg');
+    url('../../src/assets/images/banner.jpg');
   background-size: cover;
   background-position: left;
   width: 100%;
@@ -22,13 +22,15 @@
   padding: 1em 0em;
 }
 
-.topnav a {
+.topnav a,
+.topnav button {
   color: black;
   text-decoration: none;
   font-weight: 500;
 }
 
 .topnav a,
+.topnav button,
 .character-select {
   float: left;
   display: block;
@@ -36,12 +38,14 @@
   padding: 1em;
 }
 
-.topnav a:hover {
+.topnav a:hover,
+.topnav button:hover {
   text-decoration: underline;
   color: white;
 }
 
 .topnav .icon {
+  background-color: #08b2e3;
   display: none;
 }
 
@@ -61,16 +65,17 @@
     display: none;
   }
 
-  .topnav a.icon {
+  .topnav button.icon {
     float: right;
     display: block;
+    border: none;
   }
 
   .topnav.responsive {
     position: relative;
   }
 
-  .topnav.responsive a.icon {
+  .topnav.responsive button.icon {
     position: absolute;
     right: 0;
     top: 0;

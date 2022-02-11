@@ -31,9 +31,9 @@ export default function Navbar() {
           &nbsp;New Table
         </a>
         <div className="character-select"></div>
-        <a className="icon" onClick={() => displayMenu()}>
+        <button className="icon" onClick={() => displayMenu()}>
           <i className="fa fa-bars"></i>
-        </a>
+        </button>
       </div>
       <div className="nav-header">
         <h3>Periodic Tables</h3>
