@@ -46,12 +46,19 @@ export default function Search() {
       <div className="header">
         <h1>Search For A Reservation</h1>
       </div>
+      {reservationsError && (
+        <div className="reservations-error">
+          <ErrorAlert error={reservationsError} />
+        </div>
+      )}
+
       <form className="search-form" onSubmit={handleSubmit}>
         <label>
+          Enter a phone number:
           <input
             name="mobile_number"
             type="text"
-            placeholder="Enter a customer's phone number"
+            placeholder="123-345-6789"
             required
             ref={inputRef}
             value={number.mobile_number}
@@ -62,11 +69,6 @@ export default function Search() {
           Find
         </button>
       </form>
-      {reservationsError && (
-        <div className="reservations-error">
-          <ErrorAlert error={reservationsError} />
-        </div>
-      )}
 
       {reservations.length !== 0 && (
         <div class="search-results">
