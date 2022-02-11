@@ -40,7 +40,7 @@ export default function TablesView({ tables, loadDashboard }) {
           {(table.reservation_id && (
             <button
               type="button"
-              className="finish-button"
+              className=" btn finish-button"
               data-table-id-finish={`${table.table_id}`}
               onClick={() => handleFinish(table.table_id, table.reservation_id)}
             >
@@ -53,10 +53,12 @@ export default function TablesView({ tables, loadDashboard }) {
   ));
 
   return (
-    <main>
-      <div className="error-alert">
-        <ErrorAlert error={finishError} />
-      </div>
+    <>
+      {finishError && (
+        <div>
+          <ErrorAlert error={finishError} />
+        </div>
+      )}
       {tables.length !== 0 && (
         <>
           <div className="tables-header">
@@ -65,6 +67,6 @@ export default function TablesView({ tables, loadDashboard }) {
           <div className="tables-list">{content}</div>
         </>
       )}
-    </main>
+    </>
   );
 }

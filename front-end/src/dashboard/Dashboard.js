@@ -66,9 +66,6 @@ function Dashboard({ date }) {
       </div>
       <ErrorAlert error={reservationsError} />
       <ReservationsList reservations={reservations} />
-      <div>
-        <ErrorAlert error={tablesError} />
-      </div>
       <TablesView tables={tables} date={date} loadDashboard={loadDashboard} />
     </main>
   );
