@@ -26,7 +26,7 @@ This application allows a user to create, edit, and cancel a reservation. Create
 ### Create new Table
 ![create-a-table](https://user-images.githubusercontent.com/71313420/153055086-b7c7c8dd-c199-4a82-8576-926e83038535.png)
 ### Search for Reservation
-![search-for-reservation](https://user-images.githubusercontent.com/71313420/153055136-9958b7f4-05de-4709-927d-78ff552ed9f2.png)
+![search-for-reservation](https://user-images.githubusercontent.com/71313420/153950374-c2bee791-63ff-4446-b2b7-f882a48506f0.png)
 ### Seat a Reservation
 ![seat-a-reservation](https://user-images.githubusercontent.com/71313420/153055169-5b22a6b4-c1ba-4df3-9047-9e649e7f7f75.png)
 
@@ -40,7 +40,7 @@ As seen on a Samsung Galaxy S20 Ultra
 ### New Table
 ![create-table-mobile](https://user-images.githubusercontent.com/71313420/153056681-6be2171d-dce6-44ab-be39-e66eb2f0bbb6.png)
 ### Search Reservations
-![search-reservations-mobile](https://user-images.githubusercontent.com/71313420/153056742-ba1d8813-6b99-427a-9520-0628441ae691.png)
+![search-reservations-mobile](https://user-images.githubusercontent.com/71313420/153950411-288895cf-a268-4251-bc29-a719b34046d7.png)
 ### Seat Reservation
 ![seat-reservation-mobile](https://user-images.githubusercontent.com/71313420/153056846-f7188005-6a31-4588-b69f-0d231dbf7d3e.png)
 
