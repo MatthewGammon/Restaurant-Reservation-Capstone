@@ -30,7 +30,7 @@ export default function Navbar() {
           <span className="oi oi-layers" />
           &nbsp;New Table
         </a>
-        <div className="character-select"></div>
+        <div className="hamburger-menu"></div>
         <button className="icon" onClick={() => displayMenu()}>
           <i className="fa fa-bars"></i>
         </button>
